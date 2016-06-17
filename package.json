@@ -1,6 +1,6 @@
 {
   "name": "draftjs-utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Collection of utility function for use with Draftjs.",
   "peerDependencies": {
     "draft-js": "^0.7.0",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/jpuri/draftjs-utils.git"
   },
   "scripts": {
     "clean": "rimraf lib",

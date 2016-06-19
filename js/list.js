@@ -1,7 +1,6 @@
 /* @flow */
 
 import { getSelectedBlocksMap } from './block';
-import { BLOCK_TYPE } from 'draft-js-utils';
 import {
   ContentState,
   EditorState,
@@ -15,8 +14,8 @@ export function isListBlock(block: ContentBlock): boolean {
   if (block) {
     const blockType = block.getType();
     return (
-      blockType === BLOCK_TYPE.UNORDERED_LIST_ITEM ||
-      blockType === BLOCK_TYPE.ORDERED_LIST_ITEM
+      blockType === 'unordered-list-item' ||
+      blockType === 'ordered-list-item'
     );
   }
   return false;

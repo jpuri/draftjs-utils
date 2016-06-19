@@ -12,7 +12,6 @@
 ./interfaces/sinon.js
 ./interfaces/immutable.js
 ./interfaces/draft-js.js
-./interfaces/draft-js-utils.js
 
 [options]
 esproposal.class_static_fields=enable

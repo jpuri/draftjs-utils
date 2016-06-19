@@ -9,7 +9,6 @@ import {
   removeSelectedBlocksStyle,
   addLineBreakRemovingSelection,
 } from './block';
-import { BLOCK_TYPE } from 'draft-js-utils';
 import { isListBlock, changeDepth } from './list';
 
 /**
@@ -22,7 +21,7 @@ function handleHardNewlineEvent(editorState: EditorState): EditorState {
     const blockKey = selection.getStartKey();
     const block = contentState.getBlockForKey(blockKey);
     if (!isListBlock(block) &&
-      block.getType() !== BLOCK_TYPE.UNSTYLED &&
+      block.getType() !== 'unstyled' &&
       block.getLength() === selection.getStartOffset()) {
       return insertNewUnstyledBlock(editorState);
     } else if (isListBlock(block) && block.getLength() === 0) {

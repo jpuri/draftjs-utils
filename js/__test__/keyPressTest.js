@@ -44,7 +44,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
 
 describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
   const event = {
-    which: 'Enter',
+    which: 13,
     getModifierState: () => 'Shift',
   };
   it('should add new line id selection was collapsed', () => {

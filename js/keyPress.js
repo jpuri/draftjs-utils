@@ -41,7 +41,7 @@ function handleHardNewlineEvent(editorState: EditorState): EditorState {
 * taken from : https://github.com/facebook/draft-js/blob/master/src/component/utils/isSoftNewlineEvent.js
 */
 function isSoftNewlineEvent(e): boolean {
-  return e.which === 'Enter' && (
+  return e.which === 13 && (
     e.getModifierState('Shift') ||
     e.getModifierState('Alt') ||
     e.getModifierState('Control')

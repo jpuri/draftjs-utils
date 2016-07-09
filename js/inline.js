@@ -15,6 +15,8 @@ import {
 *   BOLD: true,
 *   ITALIC: true,
 *   UNDERLINE: true,
+*   STRIKETHROUGH: true,
+*   CODE: true,
 * }
 * Following rules are applicable:
 * - styles are all false if editor is not focused
@@ -33,6 +35,8 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       BOLD: true,
       ITALIC: true,
       UNDERLINE: true,
+      STRIKETHROUGH: true,
+      CODE: true,
     };
     for (let i = 0; i < selectedBlocks.size; i++) {
       let blockStart = i === 0 ? start : 0;
@@ -51,6 +55,11 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
           inlineStyles.ITALIC && inlineStylesAtOffset.get('ITALIC') === 'ITALIC';
         inlineStyles.UNDERLINE =
           inlineStyles.UNDERLINE && inlineStylesAtOffset.get('UNDERLINE') === 'UNDERLINE';
+        inlineStyles.STRIKETHROUGH =
+          inlineStyles.STRIKETHROUGH &&
+          inlineStylesAtOffset.get('STRIKETHROUGH') === 'STRIKETHROUGH';
+        inlineStyles.CODE =
+          inlineStyles.CODE && inlineStylesAtOffset.get('CODE') === 'CODE';
       }
     }
     return inlineStyles;
@@ -59,6 +68,8 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
     BOLD: false,
     ITALIC: false,
     UNDERLINE: false,
+    STRIKETHROUGH: false,
+    CODE: false,
   };
 }
 

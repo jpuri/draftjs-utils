@@ -13,7 +13,7 @@ import {
 import { assert } from 'chai';
 
 describe('getSelectionInlineStyle test suite', () => {
-  it('should correctly get color of selection', () => {
+  it('should correctly get inline styles', () => {
     const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -30,6 +30,16 @@ describe('getSelectionInlineStyle test suite', () => {
       'BOLD'
     );
     assert.equal(getSelectionInlineStyle(editorState).BOLD, true);
+    editorState = RichUtils.toggleInlineStyle(
+      editorState,
+      'STRIKETHROUGH'
+    );
+    assert.equal(getSelectionInlineStyle(editorState).STRIKETHROUGH, true);
+    editorState = RichUtils.toggleInlineStyle(
+      editorState,
+      'CODE'
+    );
+    assert.equal(getSelectionInlineStyle(editorState).CODE, true);
   });
 });
 

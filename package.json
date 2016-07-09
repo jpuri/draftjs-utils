@@ -1,7 +1,8 @@
 {
   "name": "draftjs-utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Collection of utility function for use with Draftjs.",
+  "main": "lib/index.js",
   "peerDependencies": {
     "draft-js": "^0.7.0",
     "immutable": "^3.8.1",

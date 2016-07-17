@@ -16,26 +16,6 @@ export function forEach(obj: Object, callback: Function): void {
 /**
 * Utility function to merge 2 objects.
 */
-export function merge(obj1: Object, obj2: Object): any {
-  let obj3;
-  forEach(obj1, (key, value) => {
-    if (!obj3) {
-      obj3 = {};
-    }
-    obj3[key] = value;
-  });
-  forEach(obj2, (key, value) => {
-    if (!obj3) {
-      obj3 = {};
-    }
-    obj3[key] = value;
-  });
-  return obj3;
-}
-
-/**
-* Utility function to merge 2 objects.
-*/
 export function size(object: Object): any {
   if (object) {
     let count = 0;

@@ -1,9 +1,15 @@
 /* @flow */
 
 import {
-  getSelectionInlineStyle,
-  getSelectionEntity,
+  colors,
+  fontSizes,
+  fontFamilies,
+  customStyleMap,
   getEntityRange,
+  toggleInlineStyle,
+  getSelectionEntity,
+  getSelectionInlineStyle,
+  getSelectionCustomInlineStyle,
 } from './inline';
 import {
   getSelectedBlocksMap,
@@ -38,9 +44,15 @@ module.exports = {
   insertNewUnstyledBlock,
   clearEditorContent,
   // Functions related to inline styles
-  getSelectionInlineStyle,
-  getSelectionEntity,
+  colors,
+  fontSizes,
+  fontFamilies,
+  customStyleMap,
   getEntityRange,
+  toggleInlineStyle,
+  getSelectionEntity,
+  getSelectionInlineStyle,
+  getSelectionCustomInlineStyle,
   // KeyPress related Functions
   handleNewLine,
   // Lists related Functions

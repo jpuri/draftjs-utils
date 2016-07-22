@@ -110,6 +110,9 @@ describe('Inline: custom styles test suite', () => {
     forEach(customInlineStylesMap.color, (key, value) => {
       assert.isDefined(value.color);
     });
+    forEach(customInlineStylesMap.bgcolor, (key, value) => {
+      assert.isDefined(value['background-color']);
+    });
     forEach(customInlineStylesMap.fontSize, (key, value) => {
       assert.isDefined(value.fontSize);
     });
@@ -117,12 +120,13 @@ describe('Inline: custom styles test suite', () => {
       assert.isDefined(value.fontFamily);
     });
   });
-  it('should initializa customStyleMap with colors, fontsizes and fontFamilies', () => {
+  it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
     assert.isTrue(customStyleMap instanceof Object);
     forEach(customStyleMap, (key, value) => {
-      assert.isDefined(value.color || value.fontSize || value.fontFamily);
+      assert.isDefined(value.color || value['background-color']
+        || value.fontSize || value.fontFamily);
     });
-    assert.equal(size(customStyleMap), size(colors) + size(fontSizes) + size(fontFamilies));
+    assert.equal(size(customStyleMap), size(colors) * 2 + size(fontSizes) + size(fontFamilies));
   });
 });
 
@@ -140,6 +144,14 @@ describe('getSelectionInlineStyle, toggleInlineStyle test suite', () => {
       updatedSelection
     );
     editorState = toggleInlineStyle(editorState, 'color', 'color-rgb(97,189,109)');
-    assert.equal(getSelectionCustomInlineStyle(editorState, ['COLOR']).COLOR, 'color-rgb(97,189,109)');
+    assert.equal(getSelectionCustomInlineStyle(
+      editorState,
+      ['COLOR']).COLOR, 'color-rgb(97,189,109)'
+    );
+    editorState = toggleInlineStyle(editorState, 'bgcolor', 'bgcolor-rgb(97,189,109)');
+    assert.equal(getSelectionCustomInlineStyle(
+      editorState,
+      ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)'
+    );
   });
 });

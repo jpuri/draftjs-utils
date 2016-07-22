@@ -139,12 +139,16 @@ export const fontFamilies = ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New 
 */
 export const customInlineStylesMap = {
   color: {},
+  bgcolor: {},
   fontSize: {},
   fontFamily: {},
 };
 colors.forEach((color) => {
   customInlineStylesMap.color[`color-${color}`] = {
     color,
+  };
+  customInlineStylesMap.bgcolor[`bgcolor-${color}`] = {
+    'background-color': color,
   };
 });
 fontSizes.forEach((size) => {
@@ -163,6 +167,7 @@ fontFamilies.forEach((family) => {
 */
 export const customStyleMap = {
   ...customInlineStylesMap.color,
+  ...customInlineStylesMap.bgcolor,
   ...customInlineStylesMap.fontSize,
   ...customInlineStylesMap.fontFamily,
 };

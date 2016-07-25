@@ -148,7 +148,7 @@ colors.forEach((color) => {
     color,
   };
   customInlineStylesMap.bgcolor[`bgcolor-${color}`] = {
-    'background-color': color,
+    backgroundColor: color,
   };
 });
 fontSizes.forEach((size) => {

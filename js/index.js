@@ -22,6 +22,8 @@ import {
   addLineBreakRemovingSelection,
   insertNewUnstyledBlock,
   clearEditorContent,
+  setBlockData,
+  getSelectedBlocksMetadata,
 } from './block';
 import {
   handleNewLine,
@@ -43,6 +45,8 @@ module.exports = {
   addLineBreakRemovingSelection,
   insertNewUnstyledBlock,
   clearEditorContent,
+  setBlockData,
+  getSelectedBlocksMetadata,
   // Functions related to inline styles
   colors,
   fontSizes,

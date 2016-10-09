@@ -111,7 +111,7 @@ describe('Inline: custom styles test suite', () => {
       assert.isDefined(value.color);
     });
     forEach(customInlineStylesMap.bgcolor, (key, value) => {
-      assert.isDefined(value['background-color']);
+      assert.isDefined(value.backgroundColor);
     });
     forEach(customInlineStylesMap.fontSize, (key, value) => {
       assert.isDefined(value.fontSize);
@@ -123,7 +123,7 @@ describe('Inline: custom styles test suite', () => {
   it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
     assert.isTrue(customStyleMap instanceof Object);
     forEach(customStyleMap, (key, value) => {
-      assert.isDefined(value.color || value['background-color']
+      assert.isDefined(value.color || value.backgroundColor
         || value.fontSize || value.fontFamily);
     });
     assert.equal(size(customStyleMap), size(colors) * 2 + size(fontSizes) + size(fontFamilies));

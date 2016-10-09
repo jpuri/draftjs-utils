@@ -9,6 +9,7 @@ import {
 import {
   OrderedMap,
   List,
+  Map,
 } from 'immutable';
 
 /**
@@ -152,4 +153,46 @@ export function clearEditorContent(editorState: EditorState): EditorState {
     'forward'
   );
   return EditorState.push(editorState, newContentState, 'remove-range');
+}
+
+/**
+* Function will add block level meta-data.
+*/
+export function setBlockData(editorState: EditorState, data: Object): EditorState {
+  const newContentState = Modifier.setBlockData(
+   editorState.getCurrentContent(),
+   editorState.getSelection(),
+   data);
+  return EditorState.push(editorState, newContentState, 'change-block-data');
+}
+
+/**
+* Function will return currently selected blocks meta data.
+*/
+export function getSelectedBlocksMetadata(editorState: EditorState): Map {
+  let metaData = new Map({});
+  const selectedBlocks = getSelectedBlocksList(editorState);
+  if (selectedBlocks && selectedBlocks.size > 0) {
+    for (let i = 0; i < selectedBlocks.size; i++) {
+      const data = selectedBlocks.get(i).getData();
+      if (!data || data.size === 0) {
+        metaData = metaData.clear();
+        break;
+      }
+      if (i === 0) {
+        metaData = data;
+      } else {
+        metaData.forEach((value, key) => { // eslint-disable-line no-loop-func
+          if (!data.get(key) || data.get(key) !== value) {
+            metaData = metaData.delete(key);
+          }
+        });
+        if (metaData.size === 0) {
+          metaData = metaData.clear();
+          break;
+        }
+      }
+    }
+  }
+  return metaData;
 }

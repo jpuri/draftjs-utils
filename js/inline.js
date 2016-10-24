@@ -34,7 +34,7 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       STRIKETHROUGH: true,
       CODE: true,
     };
-    for (let i = 0; i < selectedBlocks.size; i++) {
+    for (let i = 0; i < selectedBlocks.size; i += 1) {
       let blockStart = i === 0 ? start : 0;
       let blockEnd =
         i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
@@ -44,9 +44,9 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       } else if (blockStart === blockEnd) {
         blockStart -= 1;
       }
-      for (let j = blockStart; j < blockEnd; j++) {
+      for (let j = blockStart; j < blockEnd; j += 1) {
         const inlineStylesAtOffset = selectedBlocks.get(i).getInlineStyleAt(j);
-        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE'].forEach(style => {
+        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE'].forEach((style) => {
           inlineStyles[style] = inlineStyles[style] && inlineStylesAtOffset.get(style) === style;
         });
       }
@@ -72,7 +72,7 @@ export function getSelectionEntity(editorState: EditorState): Entity {
   }
   const block = getSelectedBlock(editorState);
 
-  for (let i = start; i < end; i++) {
+  for (let i = start; i < end; i += 1) {
     const currentEntity = block.getEntityAt(i);
     if (!currentEntity) {
       entity = undefined;
@@ -80,11 +80,9 @@ export function getSelectionEntity(editorState: EditorState): Entity {
     }
     if (i === start) {
       entity = currentEntity;
-    } else {
-      if (entity !== currentEntity) {
-        entity = undefined;
-        break;
-      }
+    } else if (entity !== currentEntity) {
+      entity = undefined;
+      break;
     }
   }
   return entity;
@@ -102,7 +100,7 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
   const block = getSelectedBlock(editorState);
   let entityRange;
   block.findEntityRanges(
-    (value) => value.get('entity') === entityKey,
+    value => value.get('entity') === entityKey,
     (start, end) => {
       entityRange = {
         start,
@@ -209,7 +207,7 @@ export function toggleInlineStyle(
 */
 function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: number): any {
   const styles = block.getInlineStyleAt(offset).toList();
-  const style = styles.filter((s) => s.startsWith(stylePrefix.toLowerCase()));
+  const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
   if (style && style.size > 0) {
     return style.get(0);
   }
@@ -230,7 +228,7 @@ export function getSelectionCustomInlineStyle(
     const selectedBlocks = getSelectedBlocksList(editorState);
     if (selectedBlocks.size > 0) {
       const inlineStyles = {};
-      for (let i = 0; i < selectedBlocks.size; i++) {
+      for (let i = 0; i < selectedBlocks.size; i += 1) {
         let blockStart = i === 0 ? start : 0;
         let blockEnd =
           i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
@@ -240,13 +238,13 @@ export function getSelectionCustomInlineStyle(
         } else if (blockStart === blockEnd) {
           blockStart -= 1;
         }
-        for (let j = blockStart; j < blockEnd; j++) {
+        for (let j = blockStart; j < blockEnd; j += 1) {
           if (j === blockStart) {
-            styles.forEach(s => {
+            styles.forEach((s) => {
               inlineStyles[s] = getStyleAtOffset(selectedBlocks.get(i), s, j);
             });
           } else {
-            styles.forEach(s => {
+            styles.forEach((s) => {
               if (inlineStyles[s] &&
                 inlineStyles[s] !== getStyleAtOffset(selectedBlocks.get(i), s, j)) {
                 inlineStyles[s] = undefined;

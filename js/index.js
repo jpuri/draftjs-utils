@@ -25,9 +25,7 @@ import {
   setBlockData,
   getSelectedBlocksMetadata,
 } from './block';
-import {
-  handleNewLine,
-} from './keyPress';
+import handleNewLine from './keyPress';
 import {
   isListBlock,
   changeDepth,

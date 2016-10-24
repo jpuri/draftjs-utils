@@ -1,11 +1,11 @@
 /* @flow */
 
-import { getSelectedBlocksMap } from './block';
 import {
   ContentState,
   EditorState,
   ContentBlock,
 } from 'draft-js';
+import { getSelectedBlocksMap } from './block';
 
 /**
 * Function to check if a block is of type list.
@@ -32,7 +32,7 @@ function changeBlocksDepth(
   const selectionState = editorState.getSelection();
   const contentState = editorState.getCurrentContent();
   let blockMap = contentState.getBlockMap();
-  const blocks = getSelectedBlocksMap(editorState).map(block => {
+  const blocks = getSelectedBlocksMap(editorState).map((block) => {
     let depth = block.getDepth() + adjustment;
     depth = Math.max(0, Math.min(depth, maxDepth));
     return block.set('depth', depth);

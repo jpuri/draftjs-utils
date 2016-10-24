@@ -1,3 +1,4 @@
+import { assert } from 'chai';
 import {
   Entity,
   RichUtils,
@@ -18,7 +19,6 @@ import {
   getEntityRange,
 } from '../inline';
 import { forEach, size } from '../common';
-import { assert } from 'chai';
 
 describe('getSelectionInlineStyle test suite', () => {
   it('should correctly get inline styles', () => {
@@ -126,7 +126,7 @@ describe('Inline: custom styles test suite', () => {
       assert.isDefined(value.color || value.backgroundColor
         || value.fontSize || value.fontFamily);
     });
-    assert.equal(size(customStyleMap), size(colors) * 2 + size(fontSizes) + size(fontFamilies));
+    assert.equal(size(customStyleMap), (size(colors) * 2) + size(fontSizes) + size(fontFamilies));
   });
 });
 

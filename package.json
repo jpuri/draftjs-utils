@@ -1,10 +1,10 @@
 {
   "name": "draftjs-utils",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "Collection of utility function for use with Draftjs.",
-  "main": "lib/index.js",
+  "main": "lib/draftjs-utils.js",
   "peerDependencies": {
-    "draft-js": "^0.x.x",
+    "draft-js": "^0.9.x",
     "immutable": "^3.x.x"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "eslint-plugin-react": "^6.4.1",
     "flow-bin": "^0.33.0",
     "immutable": "^3.8.1",
+    "jsdom": "^9.8.0",
     "mocha": "^3.1.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

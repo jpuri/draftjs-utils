@@ -6,7 +6,7 @@
 export function forEach(obj: Object, callback: Function): void {
   if (obj) {
     for (const key in obj) { // eslint-disable-line no-restricted-syntax
-      if (obj.hasOwnProperty(key)) {
+      if ({}.hasOwnProperty.call(obj, key)) {
         callback(key, obj[key]);
       }
     }
@@ -20,7 +20,7 @@ export function size(object: Object): any {
   if (object) {
     let count = 0;
     forEach(object, () => {
-      count++;
+      count += 1;
     });
     return count;
   }

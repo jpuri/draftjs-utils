@@ -1,6 +1,6 @@
 import { assert } from 'chai';
-import { forEach, size } from '../common';
 import { spy } from 'sinon';
+import { forEach, size } from '../common';
 
 describe('forEach test suite', () => {
   const obj = {

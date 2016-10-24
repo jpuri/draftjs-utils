@@ -60,7 +60,7 @@ function isSoftNewlineEvent(e): boolean {
 * 4. Enter, Selection Collapsed ->
 *      if current block not of type list, a new unstyled block will be inserted.
 */
-export function handleNewLine(editorState: EditorState, event: Object): EditorState {
+export default function handleNewLine(editorState: EditorState, event: Object): EditorState {
   if (isSoftNewlineEvent(event)) {
     const selection = editorState.getSelection();
     if (selection.isCollapsed()) {

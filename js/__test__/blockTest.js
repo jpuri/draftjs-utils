@@ -1,5 +1,10 @@
 import { assert } from 'chai';
 import {
+  EditorState,
+  convertFromHTML,
+  ContentState,
+} from 'draft-js';
+import {
   getAllBlocks,
   getSelectedBlock,
   removeSelectedBlocksStyle,
@@ -10,11 +15,6 @@ import {
   insertNewUnstyledBlock,
   addLineBreakRemovingSelection,
 } from '../block';
-import {
-  EditorState,
-  convertFromHTML,
-  ContentState,
-} from 'draft-js';
 
 describe('BlockUtils test suite', () => {
   it('should add new unstyles block when insertNewUnstyledBlock is called', () => {

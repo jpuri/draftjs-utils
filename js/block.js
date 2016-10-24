@@ -61,7 +61,7 @@ export function getAllBlocks(editorState: EditorState): List {
 */
 export function getSelectedBlocksType(editorState: EditorState): any {
   const blocks = getSelectedBlocksList(editorState);
-  const hasMultipleBlockTypes = blocks.some((block) => block.type !== blocks.get(0).type);
+  const hasMultipleBlockTypes = blocks.some(block => block.type !== blocks.get(0).type);
   if (!hasMultipleBlockTypes) {
     return blocks.get(0).type;
   }
@@ -92,7 +92,7 @@ export function getSelectionText(editorState: EditorState): string {
       start = end;
       end = temp;
     }
-    for (let i = 0; i < selectedBlocks.size; i++) {
+    for (let i = 0; i < selectedBlocks.size; i += 1) {
       const blockStart = i === 0 ? start : 0;
       const blockEnd =
         i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
@@ -173,7 +173,7 @@ export function getSelectedBlocksMetadata(editorState: EditorState): Map {
   let metaData = new Map({});
   const selectedBlocks = getSelectedBlocksList(editorState);
   if (selectedBlocks && selectedBlocks.size > 0) {
-    for (let i = 0; i < selectedBlocks.size; i++) {
+    for (let i = 0; i < selectedBlocks.size; i += 1) {
       const data = selectedBlocks.get(i).getData();
       if (!data || data.size === 0) {
         metaData = metaData.clear();

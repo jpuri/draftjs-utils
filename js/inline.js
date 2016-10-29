@@ -173,7 +173,7 @@ export const customStyleMap = {
 /**
 * Function to toggle a custom inline style in current selection current selection.
 */
-export function toggleInlineStyle(
+export function toggleCustomInlineStyle(
   editorState: EditorState,
   styleType: string,
   style: string
@@ -257,4 +257,20 @@ export function getSelectionCustomInlineStyle(
     }
   }
   return {};
+}
+
+/**
+* Function to remove all inline styles applied to the selection.
+*/
+export function removeAllInlineStyles(editorState: EditorState): void {
+  const currentStyles = editorState.getCurrentInlineStyle();
+  let contentState = editorState.getCurrentContent();
+  currentStyles.forEach((style) => {
+    contentState = Modifier.removeInlineStyle(
+      contentState,
+      editorState.getSelection(),
+      style
+    );
+  });
+  return EditorState.push(editorState, contentState, 'change-inline-style');
 }

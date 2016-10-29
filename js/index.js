@@ -6,8 +6,9 @@ import {
   fontFamilies,
   customStyleMap,
   getEntityRange,
-  toggleInlineStyle,
+  toggleCustomInlineStyle,
   getSelectionEntity,
+  removeAllInlineStyles,
   getSelectionInlineStyle,
   getSelectionCustomInlineStyle,
 } from './inline';
@@ -51,8 +52,9 @@ module.exports = {
   fontFamilies,
   customStyleMap,
   getEntityRange,
-  toggleInlineStyle,
+  toggleCustomInlineStyle,
   getSelectionEntity,
+  removeAllInlineStyles,
   getSelectionInlineStyle,
   getSelectionCustomInlineStyle,
   // KeyPress related Functions

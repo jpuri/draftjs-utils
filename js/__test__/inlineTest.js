@@ -11,7 +11,7 @@ import {
   fontSizes,
   fontFamilies,
   customStyleMap,
-  toggleInlineStyle,
+  toggleCustomInlineStyle,
   customInlineStylesMap,
   getSelectionInlineStyle,
   getSelectionCustomInlineStyle,
@@ -130,7 +130,7 @@ describe('Inline: custom styles test suite', () => {
   });
 });
 
-describe('getSelectionInlineStyle, toggleInlineStyle test suite', () => {
+describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
   it('should correctly get color of selection', () => {
     const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -143,12 +143,12 @@ describe('getSelectionInlineStyle, toggleInlineStyle test suite', () => {
       editorState,
       updatedSelection
     );
-    editorState = toggleInlineStyle(editorState, 'color', 'color-rgb(97,189,109)');
+    editorState = toggleCustomInlineStyle(editorState, 'color', 'color-rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
       ['COLOR']).COLOR, 'color-rgb(97,189,109)'
     );
-    editorState = toggleInlineStyle(editorState, 'bgcolor', 'bgcolor-rgb(97,189,109)');
+    editorState = toggleCustomInlineStyle(editorState, 'bgcolor', 'bgcolor-rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
       ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)'

@@ -5,7 +5,7 @@ import {
   ContentState,
 } from 'draft-js';
 import { getAllBlocks } from '../block';
-import { handleNewLine } from '../keyPress';
+import handleNewLine from '../keyPress';
 
 describe('handleNewLine: Enter KeyPress test suite', () => {
   it('should add new unstyles block if enter is pressed at the end of a styles block', () => {

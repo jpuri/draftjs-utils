@@ -274,3 +274,6 @@ export function removeAllInlineStyles(editorState: EditorState): void {
   });
   return EditorState.push(editorState, contentState, 'change-inline-style');
 }
+
+
+// todo: add unit test cases.

@@ -33,6 +33,8 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       UNDERLINE: true,
       STRIKETHROUGH: true,
       CODE: true,
+      SUPERSCRIPT: true,
+      SUBSCRIPT: true,
     };
     for (let i = 0; i < selectedBlocks.size; i += 1) {
       let blockStart = i === 0 ? start : 0;
@@ -46,7 +48,7 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       }
       for (let j = blockStart; j < blockEnd; j += 1) {
         const inlineStylesAtOffset = selectedBlocks.get(i).getInlineStyleAt(j);
-        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE'].forEach((style) => {
+        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
           inlineStyles[style] = inlineStyles[style] && inlineStylesAtOffset.get(style) === style;
         });
       }
@@ -140,6 +142,18 @@ export const customInlineStylesMap = {
   bgcolor: {},
   fontSize: {},
   fontFamily: {},
+  SUPERSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    top: -8,
+    display: 'inline-flex',
+  },
+  SUBSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    bottom: -8,
+    display: 'inline-flex',
+  },
 };
 colors.forEach((color) => {
   customInlineStylesMap.color[`color-${color}`] = {
@@ -168,6 +182,8 @@ export const customStyleMap = {
   ...customInlineStylesMap.bgcolor,
   ...customInlineStylesMap.fontSize,
   ...customInlineStylesMap.fontFamily,
+  SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
+  SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
 };
 
 /**

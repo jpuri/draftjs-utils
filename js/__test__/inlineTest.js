@@ -126,7 +126,9 @@ describe('Inline: custom styles test suite', () => {
       assert.isDefined(value.color || value.backgroundColor
         || value.fontSize || value.fontFamily);
     });
-    assert.equal(size(customStyleMap), (size(colors) * 2) + size(fontSizes) + size(fontFamilies));
+    assert.equal(
+      size(customStyleMap), (size(colors) * 2) + size(fontSizes) + size(fontFamilies) + 2
+    );
   });
 });
 

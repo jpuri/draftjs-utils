@@ -32,7 +32,7 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       ITALIC: true,
       UNDERLINE: true,
       STRIKETHROUGH: true,
-      CODE: true,
+      MONOSPACE: true,
       SUPERSCRIPT: true,
       SUBSCRIPT: true,
     };
@@ -48,7 +48,7 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       }
       for (let j = blockStart; j < blockEnd; j += 1) {
         const inlineStylesAtOffset = selectedBlocks.get(i).getInlineStyleAt(j);
-        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
+        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'MONOSPACE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
           inlineStyles[style] = inlineStyles[style] && inlineStylesAtOffset.get(style) === style;
         });
       }
@@ -137,7 +137,8 @@ export const fontFamilies = ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New 
 /**
 * Collection of all custom inline styles.
 */
-export const customInlineStylesMap = {
+export const customInlineStylesMap =
+ {
   color: {},
   bgcolor: {},
   fontSize: {},

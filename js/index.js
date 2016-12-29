@@ -2,10 +2,10 @@
 
 import {
   colors,
-  fontSizes,
-  fontFamilies,
-  customStyleMap,
   getEntityRange,
+  setFontSizes,
+  setFontFamilies,
+  getCustomStyleMap,
   toggleCustomInlineStyle,
   getSelectionEntity,
   removeAllInlineStyles,
@@ -48,10 +48,10 @@ module.exports = {
   getSelectedBlocksMetadata,
   // Functions related to inline styles
   colors,
-  fontSizes,
-  fontFamilies,
-  customStyleMap,
   getEntityRange,
+  setFontSizes,
+  setFontFamilies,
+  getCustomStyleMap,
   toggleCustomInlineStyle,
   getSelectionEntity,
   removeAllInlineStyles,

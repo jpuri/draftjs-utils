@@ -127,12 +127,36 @@ export const colors = ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 
 /**
 * Array of font-sizes supported for custom inline styles.
 */
-export const fontSizes = [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96];
+let fontSizes = [];
 
 /**
-* Array of font-sizes supported for custom inline styles.
+* Array of font-families supported for custom inline styles.
 */
-export const fontFamilies = ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana'];
+let fontFamilies = [];
+
+/**
+* Set font families.
+*/
+export const setFontSizes = (fontSizes) => {
+  fontSizes = fontSizes;
+  fontSizes.forEach((size) => {
+    customInlineStylesMap.fontSize[`fontsize-${size}`] = {
+      fontSize: size,
+    };
+  });
+}
+
+/**
+* Set font families.
+*/
+export const setFontFamilies = (fontFamilies) => {
+  fontFamilies = fontFamilies;
+  fontFamilies.forEach((family) => {
+    customInlineStylesMap.fontFamily[`fontfamily-${family}`] = {
+      fontFamily: family,
+    };
+  });
+}
 
 /**
 * Collection of all custom inline styles.
@@ -164,27 +188,19 @@ colors.forEach((color) => {
     backgroundColor: color,
   };
 });
-fontSizes.forEach((size) => {
-  customInlineStylesMap.fontSize[`fontsize-${size}`] = {
-    fontSize: size,
-  };
-});
-fontFamilies.forEach((family) => {
-  customInlineStylesMap.fontFamily[`fontfamily-${family}`] = {
-    fontFamily: family,
-  };
-});
 
 /**
 * Combined map of all custon inline styles used to initialize editor.
 */
-export const customStyleMap = {
-  ...customInlineStylesMap.color,
-  ...customInlineStylesMap.bgcolor,
-  ...customInlineStylesMap.fontSize,
-  ...customInlineStylesMap.fontFamily,
-  SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
-  SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
+export const getCustomStyleMap = () => {
+  return {
+    ...customInlineStylesMap.color,
+    ...customInlineStylesMap.bgcolor,
+    ...customInlineStylesMap.fontSize,
+    ...customInlineStylesMap.fontFamily,
+    SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
+    SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
+  }
 };
 
 /**

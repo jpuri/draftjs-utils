@@ -53,7 +53,7 @@ describe('changeDepth test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = changeDepth(editorState, 1, 4);
     assert.equal(getSelectedBlock(editorState).getDepth(), 0);
@@ -70,7 +70,7 @@ describe('changeDepth test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = changeDepth(editorState, 1, 4);
     assert.equal(getSelectedBlock(editorState).getDepth(), 1);

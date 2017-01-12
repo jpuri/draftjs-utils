@@ -10,7 +10,7 @@ import {
   colors,
   fontSizes,
   fontFamilies,
-  customStyleMap,
+  getCustomStyleMap,
   toggleCustomInlineStyle,
   customInlineStylesMap,
   getSelectionInlineStyle,
@@ -31,21 +31,21 @@ describe('getSelectionInlineStyle test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = RichUtils.toggleInlineStyle(
       editorState,
-      'BOLD'
+      'BOLD',
     );
     assert.equal(getSelectionInlineStyle(editorState).BOLD, true);
     editorState = RichUtils.toggleInlineStyle(
       editorState,
-      'STRIKETHROUGH'
+      'STRIKETHROUGH',
     );
     assert.equal(getSelectionInlineStyle(editorState).STRIKETHROUGH, true);
     editorState = RichUtils.toggleInlineStyle(
       editorState,
-      'CODE'
+      'CODE',
     );
     assert.equal(getSelectionInlineStyle(editorState).CODE, true);
   });
@@ -85,7 +85,7 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.isUndefined(getSelectionEntity(editorState));
     const entityRange = getEntityRange(editorState, entityKey);
@@ -99,11 +99,11 @@ describe('Inline: custom styles test suite', () => {
   it('should initializa colors', () => {
     assert.isTrue(colors instanceof Array);
   });
-  it('should initializa fontSizes', () => {
-    assert.isTrue(fontSizes instanceof Array);
+  it('should not initialize fontSizes', () => {
+    assert.isNotTrue(fontSizes instanceof Array);
   });
-  it('should initializa fontFamilies', () => {
-    assert.isTrue(fontFamilies instanceof Array);
+  it('should initialize fontFamilies', () => {
+    assert.isNotTrue(fontFamilies instanceof Array);
   });
   it('should initialize customInlineStylesMap with a map of inline styles', () => {
     assert.isTrue(customInlineStylesMap instanceof Object);
@@ -113,21 +113,11 @@ describe('Inline: custom styles test suite', () => {
     forEach(customInlineStylesMap.bgcolor, (key, value) => {
       assert.isDefined(value.backgroundColor);
     });
-    forEach(customInlineStylesMap.fontSize, (key, value) => {
-      assert.isDefined(value.fontSize);
-    });
-    forEach(customInlineStylesMap.fontFamilies, (key, value) => {
-      assert.isDefined(value.fontFamily);
-    });
   });
   it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
-    assert.isTrue(customStyleMap instanceof Object);
-    forEach(customStyleMap, (key, value) => {
-      assert.isDefined(value.color || value.backgroundColor
-        || value.fontSize || value.fontFamily);
-    });
+    assert.isTrue(getCustomStyleMap instanceof Function);
     assert.equal(
-      size(customStyleMap), (size(colors) * 2) + size(fontSizes) + size(fontFamilies) + 2
+      size(getCustomStyleMap()), (size(colors) * 2) + 2,
     );
   });
 });
@@ -143,17 +133,17 @@ describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = toggleCustomInlineStyle(editorState, 'color', 'color-rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
-      ['COLOR']).COLOR, 'color-rgb(97,189,109)'
+      ['COLOR']).COLOR, 'color-rgb(97,189,109)',
     );
     editorState = toggleCustomInlineStyle(editorState, 'bgcolor', 'bgcolor-rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
-      ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)'
+      ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)',
     );
   });
 });

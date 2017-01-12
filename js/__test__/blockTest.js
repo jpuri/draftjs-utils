@@ -27,7 +27,7 @@ describe('BlockUtils test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = insertNewUnstyledBlock(editorState);
     assert.equal(getAllBlocks(editorState).size, 2);
@@ -38,7 +38,7 @@ describe('getSelectedBlocksList, getSelectedBlocksMap, getSelectedBlock, getAllB
 () => {
   it('should correctly return list of selected blocks', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1>'
+      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -48,7 +48,7 @@ describe('getSelectedBlocksList, getSelectedBlocksMap, getSelectedBlock, getAllB
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     const selectedBlockList = getSelectedBlocksList(editorState);
     const selectedBlockMap = getSelectedBlocksList(editorState);
@@ -65,7 +65,7 @@ describe('getSelectedBlocksList, getSelectedBlocksMap, getSelectedBlock, getAllB
 describe('getSelectedBlocksType test suite', () => {
   it('should return correct block-type', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>'
+      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -75,13 +75,13 @@ describe('getSelectedBlocksType test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.equal(getSelectedBlocksType(editorState), 'header-one');
   });
   it('should return undefined in blocks in selection have different types', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>'
+      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -91,7 +91,7 @@ describe('getSelectedBlocksType test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.isUndefined(getSelectedBlocksType(editorState));
   });
@@ -100,7 +100,7 @@ describe('getSelectedBlocksType test suite', () => {
 describe('removeSelectedBlocksStyle test suite', () => {
   it('should remove style of selected blocks', () => {
     const contentBlocks = convertFromHTML(
-      '<ul><li>test</li><li>li-1</li></ul><h1>header</h1>'
+      '<ul><li>test</li><li>li-1</li></ul><h1>header</h1>',
     );
     // Following hack was needed to create a block of 0 length.
     // As convertFromHTML, does not allow to create block of length 0.
@@ -116,7 +116,7 @@ describe('removeSelectedBlocksStyle test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = removeSelectedBlocksStyle(editorState);
     assert.equal(getSelectedBlocksType(editorState), 'unstyled');
@@ -126,7 +126,7 @@ describe('removeSelectedBlocksStyle test suite', () => {
 describe('insertNewUnstyledBlock test suite', () => {
   it('should insert an unstyled block', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>testing1</h1><h1>testing2</h1>'
+      '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -138,7 +138,7 @@ describe('insertNewUnstyledBlock test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.equal(getAllBlocks(editorState).size, 2);
     editorState = insertNewUnstyledBlock(editorState);
@@ -149,7 +149,7 @@ describe('insertNewUnstyledBlock test suite', () => {
 describe('getSelectionText test suite', () => {
   it('should get text for current selection', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>testing1</h1><h1>testing2</h1>'
+      '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -161,13 +161,13 @@ describe('getSelectionText test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.equal(getSelectionText(editorState), 'testing1testing2');
   });
   it('should not include text for blocsk not selected', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>testing1</h1><h1>testing2</h1><h1>testing3</h1>'
+      '<h1>testing1</h1><h1>testing2</h1><h1>testing3</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -179,7 +179,7 @@ describe('getSelectionText test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.equal(getSelectionText(editorState), 'testing1testing2');
   });
@@ -188,7 +188,7 @@ describe('getSelectionText test suite', () => {
 describe('addLineBreakRemovingSelection test suite', () => {
   it('should insert a line break and remove selected text', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>testing1</h1><h1>testing2</h1>'
+      '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -200,7 +200,7 @@ describe('addLineBreakRemovingSelection test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = addLineBreakRemovingSelection(editorState);
     assert.equal(getAllBlocks(editorState).get(1).get('text'), 'tes\nng2');
@@ -210,7 +210,7 @@ describe('addLineBreakRemovingSelection test suite', () => {
 describe('clearEditorContent test suite', () => {
   it('should clear editor content', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa</h1>'
+      '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);

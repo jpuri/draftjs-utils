@@ -25,9 +25,9 @@ export function isListBlock(block: ContentBlock): boolean {
 * Function to change depth of block(s).
 */
 function changeBlocksDepth(
-    editorState: EditorState,
-    adjustment: number,
-    maxDepth: number
+  editorState: EditorState,
+  adjustment: number,
+  maxDepth: number,
   ): ContentState {
   const selectionState = editorState.getSelection();
   const contentState = editorState.getCurrentContent();
@@ -52,7 +52,7 @@ function changeBlocksDepth(
 export function changeDepth(
   editorState: EditorState,
   adjustment: number,
-  maxDepth: number
+  maxDepth: number,
 ): EditorState {
   const selection = editorState.getSelection();
   let key;
@@ -83,11 +83,11 @@ export function changeDepth(
   const withAdjustment = changeBlocksDepth(
     editorState,
     adjustment,
-    adjustedMaxDepth
+    adjustedMaxDepth,
   );
   return EditorState.push(
     editorState,
     withAdjustment,
-    'adjust-depth'
+    'adjust-depth',
   );
 }

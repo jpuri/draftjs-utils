@@ -19,7 +19,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = handleNewLine(editorState, {});
     assert.equal(getAllBlocks(editorState).size, 2);
@@ -36,7 +36,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     assert.isUndefined(handleNewLine(editorState, {}));
   });
@@ -58,7 +58,7 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = handleNewLine(editorState, event);
     assert.equal(getAllBlocks(editorState).size, 1);
@@ -76,7 +76,7 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
     });
     editorState = EditorState.acceptSelection(
       editorState,
-      updatedSelection
+      updatedSelection,
     );
     editorState = handleNewLine(editorState, event);
     assert.equal(getAllBlocks(editorState).get(0).getLength(), 5);

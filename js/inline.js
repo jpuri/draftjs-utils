@@ -109,7 +109,7 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
         end,
         text: block.get('text').slice(start, end),
       };
-    }
+    },
   );
   return entityRange;
 }
@@ -118,68 +118,34 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
 * Array of colors supported for custom inline styles.
 */
 export const colors = ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 'rgb(44,130,201)',
-    'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
-    'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
-    'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
-    'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
-    'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'];
-
-/**
-* Array of font-sizes supported for custom inline styles.
-*/
-let fontSizes = [];
-
-/**
-* Array of font-families supported for custom inline styles.
-*/
-let fontFamilies = [];
-
-/**
-* Set font families.
-*/
-export const setFontSizes = (fontSizes) => {
-  fontSizes = fontSizes;
-  fontSizes.forEach((size) => {
-    customInlineStylesMap.fontSize[`fontsize-${size}`] = {
-      fontSize: size,
-    };
-  });
-}
-
-/**
-* Set font families.
-*/
-export const setFontFamilies = (fontFamilies) => {
-  fontFamilies = fontFamilies;
-  fontFamilies.forEach((family) => {
-    customInlineStylesMap.fontFamily[`fontfamily-${family}`] = {
-      fontFamily: family,
-    };
-  });
-}
+  'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
+  'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
+  'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
+  'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
+  'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'];
 
 /**
 * Collection of all custom inline styles.
 */
 export const customInlineStylesMap =
- {
-  color: {},
-  bgcolor: {},
-  fontSize: {},
-  fontFamily: {},
-  SUPERSCRIPT: {
-    fontSize: 11,
-    position: 'relative',
-    top: -8,
-    display: 'inline-flex',
-  },
-  SUBSCRIPT: {
-    fontSize: 11,
-    position: 'relative',
-    bottom: -8,
-    display: 'inline-flex',
-  },
-};
+  {
+    color: {},
+    bgcolor: {},
+    fontSize: {},
+    fontFamily: {},
+    SUPERSCRIPT: {
+      fontSize: 11,
+      position: 'relative',
+      top: -8,
+      display: 'inline-flex',
+    },
+    SUBSCRIPT: {
+      fontSize: 11,
+      position: 'relative',
+      bottom: -8,
+      display: 'inline-flex',
+    },
+  };
 colors.forEach((color) => {
   customInlineStylesMap.color[`color-${color}`] = {
     color,
@@ -190,9 +156,31 @@ colors.forEach((color) => {
 });
 
 /**
+* Set font families.
+*/
+export const setFontSizes = (fontSizes: Array<number>) => {
+  fontSizes.forEach((size) => {
+    customInlineStylesMap.fontSize[`fontsize-${size}`] = {
+      fontSize: size,
+    };
+  });
+};
+
+/**
+* Set font families.
+*/
+export const setFontFamilies = (fontFamilies: Array<string>) => {
+  fontFamilies.forEach((family) => {
+    customInlineStylesMap.fontFamily[`fontfamily-${family}`] = {
+      fontFamily: family,
+    };
+  });
+};
+
+/**
 * Combined map of all custon inline styles used to initialize editor.
 */
-export const getCustomStyleMap = () => {
+export const getCustomStyleMap = () => { // eslint-disable-line
   return {
     ...customInlineStylesMap.color,
     ...customInlineStylesMap.bgcolor,
@@ -200,7 +188,7 @@ export const getCustomStyleMap = () => {
     ...customInlineStylesMap.fontFamily,
     SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
     SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
-  }
+  };
 };
 
 /**
@@ -209,7 +197,7 @@ export const getCustomStyleMap = () => {
 export function toggleCustomInlineStyle(
   editorState: EditorState,
   styleType: string,
-  style: string
+  style: string,
 ): EditorState {
   const selection = editorState.getSelection();
   const nextContentState = Object.keys(customInlineStylesMap[styleType])
@@ -218,7 +206,7 @@ export function toggleCustomInlineStyle(
   let nextEditorState = EditorState.push(
     editorState,
     nextContentState,
-    'changeinline-style'
+    'changeinline-style',
   );
   const currentStyle = editorState.getCurrentInlineStyle();
   if (selection.isCollapsed()) {
@@ -229,7 +217,7 @@ export function toggleCustomInlineStyle(
   if (!currentStyle.has(style)) {
     nextEditorState = RichUtils.toggleInlineStyle(
       nextEditorState,
-      style
+      style,
     );
   }
   return nextEditorState;
@@ -252,7 +240,7 @@ function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: numb
 */
 export function getSelectionCustomInlineStyle(
   editorState: EditorState,
-  styles: Array<string>
+  styles: Array<string>,
 ): Object {
   if (editorState && styles && styles.length > 0) {
     const currentSelection = editorState.getSelection();
@@ -302,7 +290,7 @@ export function removeAllInlineStyles(editorState: EditorState): void {
     contentState = Modifier.removeInlineStyle(
       contentState,
       editorState.getSelection(),
-      style
+      style,
     );
   });
   return EditorState.push(editorState, contentState, 'change-inline-style');

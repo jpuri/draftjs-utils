@@ -130,7 +130,7 @@ export function addLineBreakRemovingSelection(editorState: EditorState): EditorS
 export function insertNewUnstyledBlock(editorState: EditorState): EditorState {
   const newContentState = Modifier.splitBlock(
     editorState.getCurrentContent(),
-    editorState.getSelection()
+    editorState.getSelection(),
   );
   const newEditorState = EditorState.push(editorState, newContentState, 'split-block');
   return removeSelectedBlocksStyle(newEditorState);
@@ -150,7 +150,7 @@ export function clearEditorContent(editorState: EditorState): EditorState {
   const newContentState = Modifier.removeRange(
     editorState.getCurrentContent(),
     updatedSelection,
-    'forward'
+    'forward',
   );
   return EditorState.push(editorState, newContentState, 'remove-range');
 }

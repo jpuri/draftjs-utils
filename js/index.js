@@ -1,8 +1,8 @@
 /* @flow */
 
 import {
-  colors,
   getEntityRange,
+  setColors,
   setFontSizes,
   setFontFamilies,
   getCustomStyleMap,
@@ -47,8 +47,8 @@ module.exports = {
   setBlockData,
   getSelectedBlocksMetadata,
   // Functions related to inline styles
-  colors,
   getEntityRange,
+  setColors,
   setFontSizes,
   setFontFamilies,
   getCustomStyleMap,

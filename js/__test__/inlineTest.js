@@ -22,7 +22,7 @@ import { forEach, size } from '../common';
 
 describe('getSelectionInlineStyle test suite', () => {
   it('should correctly get inline styles', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({
@@ -53,7 +53,7 @@ describe('getSelectionInlineStyle test suite', () => {
 
 describe('getSelectionEntity, getEntityRange test suite', () => {
   it('should return entity of selection', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({
@@ -96,8 +96,8 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
 });
 
 describe('Inline: custom styles test suite', () => {
-  it('should initializa colors', () => {
-    assert.isTrue(colors instanceof Array);
+  it('should initialize colors', () => {
+    assert.isNotTrue(colors instanceof Array);
   });
   it('should not initialize fontSizes', () => {
     assert.isNotTrue(fontSizes instanceof Array);
@@ -117,7 +117,7 @@ describe('Inline: custom styles test suite', () => {
   it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
     assert.isTrue(getCustomStyleMap instanceof Function);
     assert.equal(
-      size(getCustomStyleMap()), (size(colors) * 2) + 2,
+      size(getCustomStyleMap()), 2,
     );
   });
 });

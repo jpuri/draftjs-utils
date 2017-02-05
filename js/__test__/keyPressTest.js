@@ -9,7 +9,7 @@ import handleNewLine from '../keyPress';
 
 describe('handleNewLine: Enter KeyPress test suite', () => {
   it('should add new unstyles block if enter is pressed at the end of a styles block', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     assert.equal(getAllBlocks(editorState).size, 1);
@@ -26,7 +26,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
   });
 
   it('should do nothing if current block was UNSTYLED', () => {
-    const contentBlocks = convertFromHTML('<div>aaaaaaaaaa</div>');
+    const { contentBlocks } = convertFromHTML('<div>aaaaaaaaaa</div>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     assert.equal(getAllBlocks(editorState).size, 1);
@@ -48,7 +48,7 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
     getModifierState: () => 'Shift',
   };
   it('should add new line id selection was collapsed', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     assert.equal(getAllBlocks(editorState).size, 1);
@@ -66,7 +66,7 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
   });
 
   it('should remove selected text', () => {
-    const contentBlocks = convertFromHTML('<div>aaaaaaaaaa</div>');
+    const { contentBlocks } = convertFromHTML('<div>aaaaaaaaaa</div>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     assert.equal(getAllBlocks(editorState).size, 1);

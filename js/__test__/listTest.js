@@ -36,7 +36,7 @@ describe('isListBlock test suite', () => {
 
 describe('changeDepth test suite', () => {
   it('should not change depth if block is not a list', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     editorState = changeDepth(editorState, 1, 4);
@@ -44,7 +44,7 @@ describe('changeDepth test suite', () => {
   });
 
   it('should not change depth if previous block is not a lost', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({
@@ -61,7 +61,7 @@ describe('changeDepth test suite', () => {
   });
 
   it('should not change depth if previous block list of same type', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li><li>test</li></ul>');
+    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li><li>test</li></ul>');
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({

@@ -37,7 +37,7 @@ describe('BlockUtils test suite', () => {
 describe('getSelectedBlocksList, getSelectedBlocksMap, getSelectedBlock, getAllBlocks test suite',
 () => {
   it('should correctly return list of selected blocks', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -64,7 +64,7 @@ describe('getSelectedBlocksList, getSelectedBlocksMap, getSelectedBlock, getAllB
 
 describe('getSelectedBlocksType test suite', () => {
   it('should return correct block-type', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -80,7 +80,7 @@ describe('getSelectedBlocksType test suite', () => {
     assert.equal(getSelectedBlocksType(editorState), 'header-one');
   });
   it('should return undefined in blocks in selection have different types', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa3</h1><h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -99,7 +99,7 @@ describe('getSelectedBlocksType test suite', () => {
 
 describe('removeSelectedBlocksStyle test suite', () => {
   it('should remove style of selected blocks', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<ul><li>test</li><li>li-1</li></ul><h1>header</h1>',
     );
     // Following hack was needed to create a block of 0 length.
@@ -125,7 +125,7 @@ describe('removeSelectedBlocksStyle test suite', () => {
 
 describe('insertNewUnstyledBlock test suite', () => {
   it('should insert an unstyled block', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -148,7 +148,7 @@ describe('insertNewUnstyledBlock test suite', () => {
 
 describe('getSelectionText test suite', () => {
   it('should get text for current selection', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -166,7 +166,7 @@ describe('getSelectionText test suite', () => {
     assert.equal(getSelectionText(editorState), 'testing1testing2');
   });
   it('should not include text for blocsk not selected', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>testing1</h1><h1>testing2</h1><h1>testing3</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -187,7 +187,7 @@ describe('getSelectionText test suite', () => {
 
 describe('addLineBreakRemovingSelection test suite', () => {
   it('should insert a line break and remove selected text', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>testing1</h1><h1>testing2</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
@@ -209,7 +209,7 @@ describe('addLineBreakRemovingSelection test suite', () => {
 
 describe('clearEditorContent test suite', () => {
   it('should clear editor content', () => {
-    const contentBlocks = convertFromHTML(
+    const { contentBlocks } = convertFromHTML(
       '<h1>aaaaaaaaaa</h1><h1>aaaaaaaaaa</h1>',
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);

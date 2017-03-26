@@ -23,6 +23,16 @@ import {
 */
 export function getSelectionInlineStyle(editorState: EditorState): Object {
   const currentSelection = editorState.getSelection();
+  if (currentSelection.isCollapsed) {
+    const inlineStyles = {};
+    const styleList = editorState.getCurrentInlineStyle().toList().toJS();
+    if(styleList) {
+      ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
+        inlineStyles[style] = styleList.indexOf(style) >= 0;
+      });
+      return inlineStyles;
+    }
+  }
   const start = currentSelection.getStartOffset();
   const end = currentSelection.getEndOffset();
   const selectedBlocks = getSelectedBlocksList(editorState);
@@ -232,6 +242,18 @@ function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: numb
 }
 
 /**
+* Function returns size at a offset.
+*/
+function getCurrentInlineStyle(editorState: EditorState, stylePrefix: string): any {
+  const styles = editorState.getCurrentInlineStyle().toList();
+  const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
+  if (style && style.size > 0) {
+    return style.get(0);
+  }
+  return undefined;
+}
+
+/**
 * Function returns an object of custom inline styles currently applicable.
 */
 export function getSelectionCustomInlineStyle(
@@ -240,11 +262,17 @@ export function getSelectionCustomInlineStyle(
 ): Object {
   if (editorState && styles && styles.length > 0) {
     const currentSelection = editorState.getSelection();
+    const inlineStyles = {};
+    if (currentSelection.isCollapsed) {
+      styles.forEach((s) => {
+        inlineStyles[s] = getCurrentInlineStyle(editorState, s);
+      });
+      return inlineStyles;
+    }
     const start = currentSelection.getStartOffset();
     const end = currentSelection.getEndOffset();
     const selectedBlocks = getSelectedBlocksList(editorState);
     if (selectedBlocks.size > 0) {
-      const inlineStyles = {};
       for (let i = 0; i < selectedBlocks.size; i += 1) {
         let blockStart = i === 0 ? start : 0;
         let blockEnd =

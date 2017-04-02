@@ -135,12 +135,12 @@ describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
       editorState,
       updatedSelection,
     );
-    editorState = toggleCustomInlineStyle(editorState, 'color', 'color-rgb(97,189,109)');
+    editorState = toggleCustomInlineStyle(editorState, 'color', 'rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
       ['COLOR']).COLOR, 'color-rgb(97,189,109)',
     );
-    editorState = toggleCustomInlineStyle(editorState, 'bgcolor', 'bgcolor-rgb(97,189,109)');
+    editorState = toggleCustomInlineStyle(editorState, 'bgcolor', 'rgb(97,189,109)');
     assert.equal(getSelectionCustomInlineStyle(
       editorState,
       ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)',

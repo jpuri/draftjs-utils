@@ -127,6 +127,25 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
 /**
 * Collection of all custom inline styles.
 */
+const customInlineStyleMap = {
+  SUPERSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    top: -8,
+    display: 'inline-flex',
+  },
+  SUBSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    bottom: -8,
+    display: 'inline-flex',
+  },
+};
+
+
+/**
+* Collection of all custom inline styles.
+*/
 export const customInlineStylesMap =
   {
     color: {},
@@ -148,39 +167,10 @@ export const customInlineStylesMap =
   };
 
 /**
-* Set colors.
+* Set style.
 */
-export const setColors = (colors: Array<string>) => {
-  colors.forEach((color) => {
-    customInlineStylesMap.color[`color-${color}`] = {
-      color,
-    };
-    customInlineStylesMap.bgcolor[`bgcolor-${color}`] = {
-      backgroundColor: color,
-    };
-  });
-};
-
-/**
-* Set font families.
-*/
-export const setFontSizes = (fontSizes: Array<number>) => {
-  fontSizes.forEach((size) => {
-    customInlineStylesMap.fontSize[`fontsize-${size}`] = {
-      fontSize: size,
-    };
-  });
-};
-
-/**
-* Set font families.
-*/
-export const setFontFamilies = (fontFamilies: Array<string>) => {
-  fontFamilies.forEach((family) => {
-    customInlineStylesMap.fontFamily[`fontfamily-${family}`] = {
-      fontFamily: family,
-    };
-  });
+const addToCustomStyleMap = (styleType, styleKey, style) => { // eslint-disable-line
+  customInlineStylesMap[styleType][`${styleType.toLowerCase()}-${style}`] = { [`${styleKey}`]: style };
 };
 
 /**
@@ -220,11 +210,22 @@ export function toggleCustomInlineStyle(
       .reduce((state, s) => RichUtils.toggleInlineStyle(state, s),
       nextEditorState);
   }
-  if (!currentStyle.has(style)) {
-    nextEditorState = RichUtils.toggleInlineStyle(
-      nextEditorState,
-      style,
-    );
+  if (styleType === 'SUPERSCRIPT' || styleType == 'SUBSCRIPT') {
+    if (!currentStyle.has(style)) {
+      nextEditorState = RichUtils.toggleInlineStyle(
+        nextEditorState,
+        style,
+      );
+    }
+  } else {
+    const styleKey = styleType === 'bgcolor' ? 'backgroundColor' : styleType;
+    if (!currentStyle.has(`${styleKey}-${style}`)) {
+      nextEditorState = RichUtils.toggleInlineStyle(
+        nextEditorState,
+        `${styleType.toLowerCase()}-${style}`,
+      );
+      addToCustomStyleMap(styleType, styleKey, style);
+    }
   }
   return nextEditorState;
 }

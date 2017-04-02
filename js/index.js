@@ -2,9 +2,6 @@
 
 import {
   getEntityRange,
-  setColors,
-  setFontSizes,
-  setFontFamilies,
   getCustomStyleMap,
   toggleCustomInlineStyle,
   getSelectionEntity,
@@ -48,9 +45,6 @@ module.exports = {
   getSelectedBlocksMetadata,
   // Functions related to inline styles
   getEntityRange,
-  setColors,
-  setFontSizes,
-  setFontFamilies,
   getCustomStyleMap,
   toggleCustomInlineStyle,
   getSelectionEntity,

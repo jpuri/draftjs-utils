@@ -231,6 +231,26 @@ export function toggleCustomInlineStyle(
 }
 
 /**
+ * 
+ */
+export function extractInlineStyle(editorState) {
+  if(editorState) {
+    const styleList = editorState.getCurrentContent().getBlockMap().map(block => block.get('characterList')).toList().flatten();
+    styleList.forEach(style => {
+      if (style && style.indexOf('color-') === 0) {
+        addToCustomStyleMap('color', 'color', style.substr(6));
+      } else if (style && style.indexOf('bgcolor-') === 0) {
+        addToCustomStyleMap('bgcolor', 'backgroundColor', style.substr(8));
+      } else if (style && style.indexOf('fontsize-') === 0) {
+        addToCustomStyleMap('fontSize', 'fontsize', style.substr(9));
+      } else if (style && style.indexOf('fontfamily-') === 0) {
+        addToCustomStyleMap('fontFamily', 'fontfamily', style.substr(11));
+      }
+    });
+  }
+}
+
+/**
 * Function returns size at a offset.
 */
 function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: number): any {

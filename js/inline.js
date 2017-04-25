@@ -242,9 +242,9 @@ export function extractInlineStyle(editorState) {
       } else if (style && style.indexOf('bgcolor-') === 0) {
         addToCustomStyleMap('bgcolor', 'backgroundColor', style.substr(8));
       } else if (style && style.indexOf('fontsize-') === 0) {
-        addToCustomStyleMap('fontSize', 'fontsize', style.substr(9));
+        addToCustomStyleMap('fontSize', 'fontSize', style.substr(9));
       } else if (style && style.indexOf('fontfamily-') === 0) {
-        addToCustomStyleMap('fontFamily', 'fontfamily', style.substr(11));
+        addToCustomStyleMap('fontFamily', 'fontFamily', style.substr(11));
       }
     });
   }

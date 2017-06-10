@@ -2,7 +2,8 @@
   "name": "draftjs-utils",
   "version": "0.7.5",
   "description": "Collection of utility function for use with Draftjs.",
-  "main": "lib/draftjs-utils.js",
+  "main": "dist/index.js",
+  "browser": "lib/draftjs-utils.js",
   "dependencies": {
     "immutable": "^3.x.x"
   },
@@ -10,6 +11,7 @@
     "draft-js": "^0.10.x"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.4.0",
@@ -41,9 +43,10 @@
     "url": "https://github.com/jpuri/draftjs-utils.git"
   },
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf lib && rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config config/webpack.prod.config.js",
-    "build": "npm run clean && npm run build:webpack",
+    "build:babel": "babel -d dist js",
+    "build": "npm run clean && npm run build:webpack && npm run build:babel",
     "test": "mocha --compilers js:config/test-compiler.js config/test-setup.js js/**/*Test.js",
     "lint": "eslint js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",

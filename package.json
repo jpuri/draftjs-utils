@@ -2,7 +2,8 @@
   "name": "draftjs-utils",
   "version": "0.7.5",
   "description": "Collection of utility function for use with Draftjs.",
-  "main": "lib/draftjs-utils.js",
+  "main": "dist/index.js",
+  "browser": "lib/draftjs-utils.js",
   "dependencies": {
     "immutable": "^3.x.x"
   },

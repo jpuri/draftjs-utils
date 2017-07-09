@@ -4,30 +4,29 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './js/index'
+    './js/index',
   ],
   output: {
     path: path.join(__dirname, '../lib'),
     filename: 'draftjs-utils.js',
     libraryTarget: 'commonjs2',
   },
+  externals: {
+    immutable: 'immutable',
+    'draft-js': 'draft-js',
+  },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
-      }
-    })
+        warnings: false,
+      },
+    }),
   ],
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel-loader'],
-      include: path.join(__dirname, '../js')
-    }]
-  }
+      include: path.join(__dirname, '../js'),
+    }],
+  },
 };

@@ -1,13 +1,11 @@
 {
   "name": "draftjs-utils",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "Collection of utility function for use with Draftjs.",
   "main": "lib/draftjs-utils.js",
-  "dependencies": {
-    "immutable": "^3.x.x"
-  },
   "peerDependencies": {
-    "draft-js": "^0.10.x"
+    "draft-js": "^0.10.x",
+    "immutable": "^3.x.x"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -19,6 +17,7 @@
     "babel-register": "^6.23.0",
     "chai": "^3.5.0",
     "draft-js": "^0.10.0",
+    "immutable": "^3.x.x",
     "enzyme": "^2.7.1",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",

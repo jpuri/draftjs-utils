@@ -1,11 +1,11 @@
 {
   "name": "draftjs-utils",
-  "version": "0.8.0",
+  "version": "0.8.03",
   "description": "Collection of utility function for use with Draftjs.",
   "main": "lib/draftjs-utils.js",
   "peerDependencies": {
     "draft-js": "^0.10.x",
-    "immutable": "^3.x.x"
+    "immutable": "^3.x.x || 4.x.x"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

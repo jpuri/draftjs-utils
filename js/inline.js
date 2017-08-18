@@ -127,31 +127,19 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
 /**
 * Collection of all custom inline styles.
 */
-const customInlineStyleMap = {
-  SUPERSCRIPT: {
-    fontSize: 11,
-    position: 'relative',
-    top: -8,
-    display: 'inline-flex',
-  },
-  SUBSCRIPT: {
-    fontSize: 11,
-    position: 'relative',
-    bottom: -8,
-    display: 'inline-flex',
-  },
-};
-
-
-/**
-* Collection of all custom inline styles.
-*/
 export const customInlineStylesMap =
   {
     color: {},
     bgcolor: {},
     fontSize: {},
     fontFamily: {},
+    CODE: {
+      fontFamily: 'monospace',
+      wordWrap: 'break-word',
+      background: '#f1f1f1',
+      borderRadius: 3,
+      padding: '1px 3px',
+    },
     SUPERSCRIPT: {
       fontSize: 11,
       position: 'relative',
@@ -182,6 +170,7 @@ export const getCustomStyleMap = () => { // eslint-disable-line
     ...customInlineStylesMap.bgcolor,
     ...customInlineStylesMap.fontSize,
     ...customInlineStylesMap.fontFamily,
+    CODE: customInlineStylesMap.CODE,
     SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
     SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
   };

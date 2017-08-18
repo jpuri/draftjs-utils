@@ -5,6 +5,7 @@ import {
   RichUtils,
   Modifier,
   ContentBlock,
+  DefaultDraftBlockRenderMap,
 } from 'draft-js';
 import {
   OrderedMap,
@@ -196,3 +197,11 @@ export function getSelectedBlocksMetadata(editorState: EditorState): Map {
   }
   return metaData;
 }
+
+const newBlockRenderMap = Map({
+  'code': {
+    element: 'pre'
+  }
+});
+
+export const blockRenderMap = DefaultDraftBlockRenderMap.merge(newBlockRenderMap);

@@ -23,6 +23,7 @@ import {
   clearEditorContent,
   setBlockData,
   getSelectedBlocksMetadata,
+  blockRenderMap,
 } from './block';
 import handleNewLine from './keyPress';
 import {
@@ -44,6 +45,7 @@ module.exports = {
   clearEditorContent,
   setBlockData,
   getSelectedBlocksMetadata,
+  blockRenderMap,
   // Functions related to inline styles
   getEntityRange,
   getCustomStyleMap,

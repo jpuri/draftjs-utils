@@ -1,6 +1,6 @@
 {
   "name": "draftjs-utils",
-  "version": "0.8.04",
+  "version": "0.8.05",
   "description": "Collection of utility function for use with Draftjs.",
   "main": "lib/draftjs-utils.js",
   "peerDependencies": {

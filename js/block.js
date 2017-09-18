@@ -46,6 +46,28 @@ export function getSelectedBlock(editorState: EditorState): ContentBlock {
   return undefined;
 }
 
+
+/**
+* Function returns the block just before the selected block.
+*/
+export function getBlockBeforeSelectedBlock(editorState: EditorState): ContentBlock {
+  if (editorState) {
+    const selectedBlock = getSelectedBlock(editorState);
+    const contentState = editorState.getCurrentContent();
+    const blockList = contentState.getBlockMap().toSeq().toList();
+    let previousIndex = 0;
+    blockList.forEach((block, index) => {
+      if (block.get('key') === selectedBlock.get('key')) {
+        previousIndex = index - 1;
+      }
+    });
+    if (previousIndex > -1) {
+      return blockList.get(previousIndex);
+    }
+  }
+  return undefined;
+}
+
 /**
 * Function returns list of all blocks in the editor.
 */

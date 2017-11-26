@@ -23,7 +23,7 @@ import {
 */
 export function getSelectionInlineStyle(editorState: EditorState): Object {
   const currentSelection = editorState.getSelection();
-  if (currentSelection.isCollapsed) {
+  if (currentSelection.isCollapsed()) {
     const inlineStyles = {};
     const styleList = editorState.getCurrentInlineStyle().toList().toJS();
     if(styleList) {

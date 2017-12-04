@@ -117,7 +117,7 @@ describe('Inline: custom styles test suite', () => {
   it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
     assert.isTrue(getCustomStyleMap instanceof Function);
     assert.equal(
-      size(getCustomStyleMap()), 2,
+      size(getCustomStyleMap()), 3,
     );
   });
 });

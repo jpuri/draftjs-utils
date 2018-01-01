@@ -9,7 +9,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../lib'),
     filename: 'draftjs-utils.js',
-    libraryTarget: 'commonjs2',
+    library: 'draftjsUtils',
+    libraryTarget: 'umd',
   },
   externals: {
     immutable: 'immutable',

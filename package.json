@@ -1,6 +1,6 @@
 {
   "name": "draftjs-utils",
-  "version": "0.9.1",
+  "version": "0.9.3",
   "description": "Collection of utility function for use with Draftjs.",
   "main": "lib/draftjs-utils.js",
   "peerDependencies": {
@@ -40,9 +40,11 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "build:webpack": "NODE_ENV=production webpack --config config/webpack.prod.config.js",
+    "build:webpack":
+      "NODE_ENV=production webpack --config config/webpack.prod.config.js",
     "build": "npm run clean && npm run build:webpack",
-    "test": "mocha --compilers js:config/test-compiler.js config/test-setup.js js/**/*Test.js",
+    "test":
+      "mocha --compilers js:config/test-compiler.js config/test-setup.js js/**/*Test.js",
     "lint": "eslint js",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "check": "npm run lint && npm run flow"

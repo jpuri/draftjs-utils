@@ -36,5 +36,8 @@ Many of the functions described use [ImmutableJS](https://facebook.github.io/imm
 | 22 | toggleCustomInlineStyle | [EditorState](https://facebook.github.io/draft-js/docs/api-reference-editor-state.html#content) , string (styleType), string(styleValue) | [EditorState](https://facebook.github.io/draft-js/docs/api-reference-editor-state.html#content) | Toggle application of custom inline style to current selection.|
 | 23 | removeAllInlineStyles | [EditorState](https://facebook.github.io/draft-js/docs/api-reference-editor-state.html#content) | [EditorState](https://facebook.github.io/draft-js/docs/api-reference-editor-state.html#content) | The function will remove all inline styles of current selection.|
 
+## Demo
+For a complete example, check out https://github.com/jpuri/react-draft-wysiwyg repo.
+
 ## License
 MIT.

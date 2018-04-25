@@ -220,7 +220,7 @@ export function toggleCustomInlineStyle(
 }
 
 /**
- * 
+ *
  */
 export function extractInlineStyle(editorState) {
   if(editorState) {
@@ -273,7 +273,7 @@ export function getSelectionCustomInlineStyle(
   if (editorState && styles && styles.length > 0) {
     const currentSelection = editorState.getSelection();
     const inlineStyles = {};
-    if (currentSelection.isCollapsed) {
+    if (currentSelection.isCollapsed()) {
       styles.forEach((s) => {
         inlineStyles[s] = getCurrentInlineStyle(editorState, s);
       });

@@ -7,12 +7,8 @@ import {
   ContentState,
 } from 'draft-js';
 import {
-  colors,
-  fontSizes,
-  fontFamilies,
   getCustomStyleMap,
   toggleCustomInlineStyle,
-  customInlineStylesMap,
   getSelectionInlineStyle,
   getSelectionCustomInlineStyle,
   getSelectionEntity,
@@ -22,31 +18,21 @@ import { forEach, size } from '../common';
 
 describe('getSelectionInlineStyle test suite', () => {
   it('should correctly get inline styles', () => {
-    const { contentBlocks } = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
+    const { contentBlocks } = convertFromHTML(
+      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
+    );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({
       anchorOffset: 0,
       focusOffset: 10,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
-    editorState = RichUtils.toggleInlineStyle(
-      editorState,
-      'BOLD',
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
+    editorState = RichUtils.toggleInlineStyle(editorState, 'BOLD');
     assert.equal(getSelectionInlineStyle(editorState).BOLD, true);
-    editorState = RichUtils.toggleInlineStyle(
-      editorState,
-      'STRIKETHROUGH',
-    );
+    editorState = RichUtils.toggleInlineStyle(editorState, 'STRIKETHROUGH');
     assert.equal(getSelectionInlineStyle(editorState).STRIKETHROUGH, true);
-    editorState = RichUtils.toggleInlineStyle(
-      editorState,
-      'CODE',
-    );
+    editorState = RichUtils.toggleInlineStyle(editorState, 'CODE');
     assert.equal(getSelectionInlineStyle(editorState).CODE, true);
   });
 });
@@ -60,8 +46,14 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
       anchorOffset: 0,
       focusOffset: 10,
     });
-    const entityKey = Entity.create('LINK', 'MUTABLE', { url: 'www.testing.com' });
-    editorState = RichUtils.toggleLink(editorState, updatedSelection, entityKey);
+    const entityKey = Entity.create('LINK', 'MUTABLE', {
+      url: 'www.testing.com',
+    });
+    editorState = RichUtils.toggleLink(
+      editorState,
+      updatedSelection,
+      entityKey,
+    );
     assert.equal(getSelectionEntity(editorState), entityKey);
     const entityRange = getEntityRange(editorState, entityKey);
     assert.equal(entityRange.start, 0);
@@ -77,16 +69,19 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
       anchorOffset: 0,
       focusOffset: 5,
     });
-    const entityKey = Entity.create('LINK', 'MUTABLE', { url: 'www.testing.com' });
-    editorState = RichUtils.toggleLink(editorState, updatedSelection, entityKey);
+    const entityKey = Entity.create('LINK', 'MUTABLE', {
+      url: 'www.testing.com',
+    });
+    editorState = RichUtils.toggleLink(
+      editorState,
+      updatedSelection,
+      entityKey,
+    );
     updatedSelection = editorState.getSelection().merge({
       anchorOffset: 0,
       focusOffset: 10,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
     assert.isUndefined(getSelectionEntity(editorState));
     const entityRange = getEntityRange(editorState, entityKey);
     assert.equal(entityRange.start, 0);
@@ -96,16 +91,8 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
 });
 
 describe('Inline: custom styles test suite', () => {
-  it('should initialize colors', () => {
-    assert.isNotTrue(colors instanceof Array);
-  });
-  it('should not initialize fontSizes', () => {
-    assert.isNotTrue(fontSizes instanceof Array);
-  });
-  it('should initialize fontFamilies', () => {
-    assert.isNotTrue(fontFamilies instanceof Array);
-  });
   it('should initialize customInlineStylesMap with a map of inline styles', () => {
+    const customInlineStylesMap = getCustomStyleMap();
     assert.isTrue(customInlineStylesMap instanceof Object);
     forEach(customInlineStylesMap.color, (key, value) => {
       assert.isDefined(value.color);
@@ -116,34 +103,39 @@ describe('Inline: custom styles test suite', () => {
   });
   it('should initializa customStyleMap with colors, bg-colors, fontsizes and fontFamilies', () => {
     assert.isTrue(getCustomStyleMap instanceof Function);
-    assert.equal(
-      size(getCustomStyleMap()), 3,
-    );
+    assert.equal(size(getCustomStyleMap()), 3);
   });
 });
 
 describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
   it('should correctly get color of selection', () => {
-    const contentBlocks = convertFromHTML('<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>');
+    const contentBlocks = convertFromHTML(
+      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
+    );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
     const updatedSelection = editorState.getSelection().merge({
       anchorOffset: 0,
       focusOffset: 10,
     });
-    editorState = EditorState.acceptSelection(
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
+    editorState = toggleCustomInlineStyle(
       editorState,
-      updatedSelection,
+      'color',
+      'rgb(97,189,109)',
     );
-    editorState = toggleCustomInlineStyle(editorState, 'color', 'rgb(97,189,109)');
-    assert.equal(getSelectionCustomInlineStyle(
-      editorState,
-      ['COLOR']).COLOR, 'color-rgb(97,189,109)',
+    assert.equal(
+      getSelectionCustomInlineStyle(editorState, ['COLOR']).COLOR,
+      'color-rgb(97,189,109)',
     );
-    editorState = toggleCustomInlineStyle(editorState, 'bgcolor', 'rgb(97,189,109)');
-    assert.equal(getSelectionCustomInlineStyle(
+    editorState = toggleCustomInlineStyle(
       editorState,
-      ['BGCOLOR']).BGCOLOR, 'bgcolor-rgb(97,189,109)',
+      'bgcolor',
+      'rgb(97,189,109)',
+    );
+    assert.equal(
+      getSelectionCustomInlineStyle(editorState, ['BGCOLOR']).BGCOLOR,
+      'bgcolor-rgb(97,189,109)',
     );
   });
 });

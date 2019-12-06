@@ -1,33 +1,29 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require("path");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    './js/index',
-  ],
+  devtool: "source-map",
+  entry: ["./js/index"],
   output: {
-    path: path.join(__dirname, '../lib'),
-    filename: 'draftjs-utils.js',
-    library: 'draftjsUtils',
-    libraryTarget: 'umd',
+    path: path.join(__dirname, "../lib"),
+    filename: "draftjs-utils.js",
+    library: "draftjsUtils",
+    libraryTarget: "umd"
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
   },
   externals: {
-    immutable: 'immutable',
-    'draft-js': 'draft-js',
+    immutable: "immutable",
+    "draft-js": "draft-js"
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-  ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel-loader'],
-      include: path.join(__dirname, '../js'),
-    }],
-  },
+    rules: [
+      {
+        test: /\.js$/,
+        use: [{ loader: "babel-loader" }],
+        include: path.join(__dirname, "../js")
+      }
+    ]
+  }
 };

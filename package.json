@@ -1,6 +1,6 @@
 {
   "name": "draftjs-utils",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "description": "Collection of utility function for use with Draftjs.",
   "main": "lib/draftjs-utils.js",
   "peerDependencies": {
@@ -8,8 +8,8 @@
     "immutable": "3.x.x || 4.x.x"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@babel/register": "^7.7.4",
     "autoprefixer": "^9.7.3",
@@ -17,7 +17,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "chai": "^4.2.0",
-    "draft-js": "^0.10.4",
+    "draft-js": "^0.11.3",
     "enzyme": "^3.10.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb": "^18.0.1",

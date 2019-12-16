@@ -1,33 +1,33 @@
-/* @flow */
-
-import {
-  Entity,
-  Modifier,
-  RichUtils,
-  EditorState,
-  ContentBlock,
-} from 'draft-js';
-import {
-  getSelectedBlocksList,
-  getSelectedBlock,
-} from './block';
+import { Modifier, RichUtils, EditorState } from 'draft-js';
+import { getSelectedBlocksList, getSelectedBlock } from './block';
 
 /**
-* Function returns an object of inline styles currently applicable.
-* Following rules are applicable:
-* - styles are all false if editor is not focused
-* - if focus is at beginning of the block and selection is collapsed
-*     styles of first character in block is returned.
-* - if focus id anywhere inside the block and selection is collapsed
-*     style of a character before focus is returned.
-*/
-export function getSelectionInlineStyle(editorState: EditorState): Object {
+ * Function returns an object of inline styles currently applicable.
+ * Following rules are applicable:
+ * - styles are all false if editor is not focused
+ * - if focus is at beginning of the block and selection is collapsed
+ *     styles of first character in block is returned.
+ * - if focus id anywhere inside the block and selection is collapsed
+ *     style of a character before focus is returned.
+ */
+export function getSelectionInlineStyle(editorState) {
   const currentSelection = editorState.getSelection();
   if (currentSelection.isCollapsed()) {
     const inlineStyles = {};
-    const styleList = editorState.getCurrentInlineStyle().toList().toJS();
-    if(styleList) {
-      ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
+    const styleList = editorState
+      .getCurrentInlineStyle()
+      .toList()
+      .toJS();
+    if (styleList) {
+      [
+        'BOLD',
+        'ITALIC',
+        'UNDERLINE',
+        'STRIKETHROUGH',
+        'CODE',
+        'SUPERSCRIPT',
+        'SUBSCRIPT',
+      ].forEach(style => {
         inlineStyles[style] = styleList.indexOf(style) >= 0;
       });
       return inlineStyles;
@@ -49,7 +49,9 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
     for (let i = 0; i < selectedBlocks.size; i += 1) {
       let blockStart = i === 0 ? start : 0;
       let blockEnd =
-        i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
+        i === selectedBlocks.size - 1
+          ? end
+          : selectedBlocks.get(i).getText().length;
       if (blockStart === blockEnd && blockStart === 0) {
         blockStart = 1;
         blockEnd = 2;
@@ -58,8 +60,17 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
       }
       for (let j = blockStart; j < blockEnd; j += 1) {
         const inlineStylesAtOffset = selectedBlocks.get(i).getInlineStyleAt(j);
-        ['BOLD', 'ITALIC', 'UNDERLINE', 'STRIKETHROUGH', 'CODE', 'SUPERSCRIPT', 'SUBSCRIPT'].forEach((style) => {
-          inlineStyles[style] = inlineStyles[style] && inlineStylesAtOffset.get(style) === style;
+        [
+          'BOLD',
+          'ITALIC',
+          'UNDERLINE',
+          'STRIKETHROUGH',
+          'CODE',
+          'SUPERSCRIPT',
+          'SUBSCRIPT',
+        ].forEach(style => {
+          inlineStyles[style] =
+            inlineStyles[style] && inlineStylesAtOffset.get(style) === style;
         });
       }
     }
@@ -69,10 +80,10 @@ export function getSelectionInlineStyle(editorState: EditorState): Object {
 }
 
 /**
-* This function will return the entity applicable to whole of current selection.
-* An entity can not span multiple blocks.
-*/
-export function getSelectionEntity(editorState: EditorState): Entity {
+ * This function will return the entity applicable to whole of current selection.
+ * An entity can not span multiple blocks.
+ */
+export function getSelectionEntity(editorState) {
   let entity;
   const selection = editorState.getSelection();
   let start = selection.getStartOffset();
@@ -101,14 +112,14 @@ export function getSelectionEntity(editorState: EditorState): Entity {
 }
 
 /**
-* The function returns the range of given entity inside the block.
-* {
-*   anchorOffset: undefined,
-*   focusOffset: undefined,
-*   text: undefined,
-* }
-*/
-export function getEntityRange(editorState: EditorState, entityKey: string): any {
+ * The function returns the range of given entity inside the block.
+ * {
+ *   anchorOffset: undefined,
+ *   focusOffset: undefined,
+ *   text: undefined,
+ * }
+ */
+export function getEntityRange(editorState, entityKey) {
   const block = getSelectedBlock(editorState);
   let entityRange;
   block.findEntityRanges(
@@ -119,53 +130,56 @@ export function getEntityRange(editorState: EditorState, entityKey: string): any
         end,
         text: block.get('text').slice(start, end),
       };
-    },
+    }
   );
   return entityRange;
 }
 
 /**
-* Collection of all custom inline styles.
-*/
-const customInlineStylesMap =
-  {
-    color: {},
-    bgcolor: {},
-    fontSize: {},
-    fontFamily: {},
-    CODE: {
-      fontFamily: 'monospace',
-      wordWrap: 'break-word',
-      background: '#f1f1f1',
-      borderRadius: 3,
-      padding: '1px 3px',
-    },
-    SUPERSCRIPT: {
-      fontSize: 11,
-      position: 'relative',
-      top: -8,
-      display: 'inline-flex',
-    },
-    SUBSCRIPT: {
-      fontSize: 11,
-      position: 'relative',
-      bottom: -8,
-      display: 'inline-flex',
-    },
-  };
-
-/**
-* Set style.
-*/
-const addToCustomStyleMap = (styleType, styleKey, style) => { // eslint-disable-line
-  customInlineStylesMap[styleType][`${styleType.toLowerCase()}-${style}`] = { [`${styleKey}`]: style };
+ * Collection of all custom inline styles.
+ */
+const customInlineStylesMap = {
+  color: {},
+  bgcolor: {},
+  fontSize: {},
+  fontFamily: {},
+  CODE: {
+    fontFamily: 'monospace',
+    wordWrap: 'break-word',
+    background: '#f1f1f1',
+    borderRadius: 3,
+    padding: '1px 3px',
+  },
+  SUPERSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    top: -8,
+    display: 'inline-flex',
+  },
+  SUBSCRIPT: {
+    fontSize: 11,
+    position: 'relative',
+    bottom: -8,
+    display: 'inline-flex',
+  },
 };
 
 /**
-* Combined map of all custon inline styles used to initialize editor.
-*/
-export const getCustomStyleMap = () => { // eslint-disable-line
-  return {
+ * Set style.
+ */
+const addToCustomStyleMap = (styleType, styleKey, style) => {
+  // eslint-disable-line
+  customInlineStylesMap[styleType][`${styleType.toLowerCase()}-${style}`] = {
+    [`${styleKey}`]: style,
+  };
+};
+
+/**
+ * Combined map of all custon inline styles used to initialize editor.
+ */
+export const getCustomStyleMap = () =>
+  // eslint-disable-line
+  ({
     ...customInlineStylesMap.color,
     ...customInlineStylesMap.bgcolor,
     ...customInlineStylesMap.fontSize,
@@ -173,45 +187,39 @@ export const getCustomStyleMap = () => { // eslint-disable-line
     CODE: customInlineStylesMap.CODE,
     SUPERSCRIPT: customInlineStylesMap.SUPERSCRIPT,
     SUBSCRIPT: customInlineStylesMap.SUBSCRIPT,
-  };
-};
+  });
 
 /**
-* Function to toggle a custom inline style in current selection current selection.
-*/
-export function toggleCustomInlineStyle(
-  editorState: EditorState,
-  styleType: string,
-  style: string,
-): EditorState {
+ * Function to toggle a custom inline style in current selection current selection.
+ */
+export function toggleCustomInlineStyle(editorState, styleType, style) {
   const selection = editorState.getSelection();
-  const nextContentState = Object.keys(customInlineStylesMap[styleType])
-    .reduce((contentState, s) => Modifier.removeInlineStyle(contentState, selection, s),
-      editorState.getCurrentContent());
+  const nextContentState = Object.keys(customInlineStylesMap[styleType]).reduce(
+    (contentState, s) => Modifier.removeInlineStyle(contentState, selection, s),
+    editorState.getCurrentContent()
+  );
   let nextEditorState = EditorState.push(
     editorState,
     nextContentState,
-    'changeinline-style',
+    'changeinline-style'
   );
   const currentStyle = editorState.getCurrentInlineStyle();
   if (selection.isCollapsed()) {
-    nextEditorState = currentStyle
-      .reduce((state, s) => RichUtils.toggleInlineStyle(state, s),
-      nextEditorState);
+    nextEditorState = currentStyle.reduce(
+      (state, s) => RichUtils.toggleInlineStyle(state, s),
+      nextEditorState
+    );
   }
   if (styleType === 'SUPERSCRIPT' || styleType == 'SUBSCRIPT') {
     if (!currentStyle.has(style)) {
-      nextEditorState = RichUtils.toggleInlineStyle(
-        nextEditorState,
-        style,
-      );
+      nextEditorState = RichUtils.toggleInlineStyle(nextEditorState, style);
     }
   } else {
     const styleKey = styleType === 'bgcolor' ? 'backgroundColor' : styleType;
     if (!currentStyle.has(`${styleKey}-${style}`)) {
       nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
-        `${styleType.toLowerCase()}-${style}`,
+        `${styleType.toLowerCase()}-${style}`
       );
       addToCustomStyleMap(styleType, styleKey, style);
     }
@@ -223,8 +231,13 @@ export function toggleCustomInlineStyle(
  *
  */
 export function extractInlineStyle(editorState) {
-  if(editorState) {
-    const styleList = editorState.getCurrentContent().getBlockMap().map(block => block.get('characterList')).toList().flatten();
+  if (editorState) {
+    const styleList = editorState
+      .getCurrentContent()
+      .getBlockMap()
+      .map(block => block.get('characterList'))
+      .toList()
+      .flatten();
     styleList.forEach(style => {
       if (style && style.indexOf('color-') === 0) {
         addToCustomStyleMap('color', 'color', style.substr(6));
@@ -240,9 +253,9 @@ export function extractInlineStyle(editorState) {
 }
 
 /**
-* Function returns size at a offset.
-*/
-function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: number): any {
+ * Function returns size at a offset.
+ */
+function getStyleAtOffset(block, stylePrefix, offset) {
   const styles = block.getInlineStyleAt(offset).toList();
   const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
   if (style && style.size > 0) {
@@ -252,9 +265,9 @@ function getStyleAtOffset(block: ContentBlock, stylePrefix: string, offset: numb
 }
 
 /**
-* Function returns size at a offset.
-*/
-function getCurrentInlineStyle(editorState: EditorState, stylePrefix: string): any {
+ * Function returns size at a offset.
+ */
+function getCurrentInlineStyle(editorState, stylePrefix) {
   const styles = editorState.getCurrentInlineStyle().toList();
   const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
   if (style && style.size > 0) {
@@ -264,17 +277,14 @@ function getCurrentInlineStyle(editorState: EditorState, stylePrefix: string): a
 }
 
 /**
-* Function returns an object of custom inline styles currently applicable.
-*/
-export function getSelectionCustomInlineStyle(
-  editorState: EditorState,
-  styles: Array<string>,
-): Object {
+ * Function returns an object of custom inline styles currently applicable.
+ */
+export function getSelectionCustomInlineStyle(editorState, styles) {
   if (editorState && styles && styles.length > 0) {
     const currentSelection = editorState.getSelection();
     const inlineStyles = {};
     if (currentSelection.isCollapsed()) {
-      styles.forEach((s) => {
+      styles.forEach(s => {
         inlineStyles[s] = getCurrentInlineStyle(editorState, s);
       });
       return inlineStyles;
@@ -286,7 +296,9 @@ export function getSelectionCustomInlineStyle(
       for (let i = 0; i < selectedBlocks.size; i += 1) {
         let blockStart = i === 0 ? start : 0;
         let blockEnd =
-          i === (selectedBlocks.size - 1) ? end : selectedBlocks.get(i).getText().length;
+          i === selectedBlocks.size - 1
+            ? end
+            : selectedBlocks.get(i).getText().length;
         if (blockStart === blockEnd && blockStart === 0) {
           blockStart = 1;
           blockEnd = 2;
@@ -295,13 +307,16 @@ export function getSelectionCustomInlineStyle(
         }
         for (let j = blockStart; j < blockEnd; j += 1) {
           if (j === blockStart) {
-            styles.forEach((s) => {
+            styles.forEach(s => {
               inlineStyles[s] = getStyleAtOffset(selectedBlocks.get(i), s, j);
             });
           } else {
-            styles.forEach((s) => {
-              if (inlineStyles[s] &&
-                inlineStyles[s] !== getStyleAtOffset(selectedBlocks.get(i), s, j)) {
+            styles.forEach(s => {
+              if (
+                inlineStyles[s] &&
+                inlineStyles[s] !==
+                  getStyleAtOffset(selectedBlocks.get(i), s, j)
+              ) {
                 inlineStyles[s] = undefined;
               }
             });
@@ -315,20 +330,19 @@ export function getSelectionCustomInlineStyle(
 }
 
 /**
-* Function to remove all inline styles applied to the selection.
-*/
-export function removeAllInlineStyles(editorState: EditorState): void {
+ * Function to remove all inline styles applied to the selection.
+ */
+export function removeAllInlineStyles(editorState) {
   const currentStyles = editorState.getCurrentInlineStyle();
   let contentState = editorState.getCurrentContent();
-  currentStyles.forEach((style) => {
+  currentStyles.forEach(style => {
     contentState = Modifier.removeInlineStyle(
       contentState,
       editorState.getSelection(),
-      style,
+      style
     );
   });
   return EditorState.push(editorState, contentState, 'change-inline-style');
 }
-
 
 // todo: add unit test cases.

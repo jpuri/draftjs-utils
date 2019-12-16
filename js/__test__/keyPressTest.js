@@ -1,9 +1,5 @@
 import { assert } from 'chai';
-import {
-  EditorState,
-  convertFromHTML,
-  ContentState,
-} from 'draft-js';
+import { EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { getAllBlocks } from '../block';
 import handleNewLine from '../keyPress';
 
@@ -17,10 +13,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
       anchorOffset: 10,
       focusOffset: 10,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
     editorState = handleNewLine(editorState, {});
     assert.equal(getAllBlocks(editorState).size, 2);
   });
@@ -34,10 +27,7 @@ describe('handleNewLine: Enter KeyPress test suite', () => {
       anchorOffset: 10,
       focusOffset: 10,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
     assert.isUndefined(handleNewLine(editorState, {}));
   });
 });
@@ -56,13 +46,15 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
       anchorOffset: 5,
       focusOffset: 5,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
     editorState = handleNewLine(editorState, event);
     assert.equal(getAllBlocks(editorState).size, 1);
-    assert.isTrue(editorState.getCurrentContent().getPlainText().indexOf('\n') > 0);
+    assert.isTrue(
+      editorState
+        .getCurrentContent()
+        .getPlainText()
+        .indexOf('\n') > 0
+    );
   });
 
   it('should remove selected text', () => {
@@ -74,15 +66,21 @@ describe('handleNewLine: SHIFT + Enter KeyPress test suite', () => {
       anchorOffset: 2,
       focusOffset: 8,
     });
-    editorState = EditorState.acceptSelection(
-      editorState,
-      updatedSelection,
-    );
+    editorState = EditorState.acceptSelection(editorState, updatedSelection);
     editorState = handleNewLine(editorState, event);
-    assert.equal(getAllBlocks(editorState).get(0).getLength(), 5);
-    assert.isTrue(editorState.getCurrentContent().getPlainText().indexOf('\n') > 0);
+    assert.equal(
+      getAllBlocks(editorState)
+        .get(0)
+        .getLength(),
+      5
+    );
+    assert.isTrue(
+      editorState
+        .getCurrentContent()
+        .getPlainText()
+        .indexOf('\n') > 0
+    );
   });
 
-  describe('isSoftNewlineEvent: Enter KeyPress test suite', () => {
-  });
+  describe('isSoftNewlineEvent: Enter KeyPress test suite', () => {});
 });

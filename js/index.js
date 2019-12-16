@@ -1,6 +1,8 @@
-/* @flow */
+export { isListBlock, changeDepth } from './list';
 
-import {
+export { default as handleNewLine } from './keyPress';
+
+export {
   getEntityRange,
   getCustomStyleMap,
   toggleCustomInlineStyle,
@@ -10,7 +12,8 @@ import {
   getSelectionInlineStyle,
   getSelectionCustomInlineStyle,
 } from './inline';
-import {
+
+export {
   getSelectedBlocksMap,
   getSelectedBlocksList,
   getSelectedBlock,
@@ -26,40 +29,3 @@ import {
   getSelectedBlocksMetadata,
   blockRenderMap,
 } from './block';
-import handleNewLine from './keyPress';
-import {
-  isListBlock,
-  changeDepth,
-} from './list';
-
-module.exports = {
-  // Functions related to blocks
-  getSelectedBlocksMap,
-  getSelectedBlocksList,
-  getSelectedBlock,
-  getBlockBeforeSelectedBlock,
-  getAllBlocks,
-  getSelectedBlocksType,
-  removeSelectedBlocksStyle,
-  getSelectionText,
-  addLineBreakRemovingSelection,
-  insertNewUnstyledBlock,
-  clearEditorContent,
-  setBlockData,
-  getSelectedBlocksMetadata,
-  blockRenderMap,
-  // Functions related to inline styles
-  getEntityRange,
-  getCustomStyleMap,
-  toggleCustomInlineStyle,
-  getSelectionEntity,
-  extractInlineStyle,
-  removeAllInlineStyles,
-  getSelectionInlineStyle,
-  getSelectionCustomInlineStyle,
-  // KeyPress related Functions
-  handleNewLine,
-  // Lists related Functions
-  isListBlock,
-  changeDepth,
-};

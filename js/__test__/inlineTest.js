@@ -19,7 +19,7 @@ import { forEach, size } from '../common';
 describe('getSelectionInlineStyle test suite', () => {
   it('should correctly get inline styles', () => {
     const { contentBlocks } = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
+      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>'
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -52,7 +52,7 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
     editorState = RichUtils.toggleLink(
       editorState,
       updatedSelection,
-      entityKey,
+      entityKey
     );
     assert.equal(getSelectionEntity(editorState), entityKey);
     const entityRange = getEntityRange(editorState, entityKey);
@@ -75,7 +75,7 @@ describe('getSelectionEntity, getEntityRange test suite', () => {
     editorState = RichUtils.toggleLink(
       editorState,
       updatedSelection,
-      entityKey,
+      entityKey
     );
     updatedSelection = editorState.getSelection().merge({
       anchorOffset: 0,
@@ -110,7 +110,7 @@ describe('Inline: custom styles test suite', () => {
 describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
   it('should correctly get color of selection', () => {
     const contentBlocks = convertFromHTML(
-      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>',
+      '<h1>aaaaaaaaaa</h1><ul><li>test</li></ul>'
     );
     const contentState = ContentState.createFromBlockArray(contentBlocks);
     let editorState = EditorState.createWithContent(contentState);
@@ -122,20 +122,20 @@ describe('getSelectionInlineStyle, toggleCustomInlineStyle test suite', () => {
     editorState = toggleCustomInlineStyle(
       editorState,
       'color',
-      'rgb(97,189,109)',
+      'rgb(97,189,109)'
     );
     assert.equal(
       getSelectionCustomInlineStyle(editorState, ['COLOR']).COLOR,
-      'color-rgb(97,189,109)',
+      'color-rgb(97,189,109)'
     );
     editorState = toggleCustomInlineStyle(
       editorState,
       'bgcolor',
-      'rgb(97,189,109)',
+      'rgb(97,189,109)'
     );
     assert.equal(
       getSelectionCustomInlineStyle(editorState, ['BGCOLOR']).BGCOLOR,
-      'bgcolor-rgb(97,189,109)',
+      'bgcolor-rgb(97,189,109)'
     );
   });
 });

@@ -1,11 +1,10 @@
-/* @flow */
-
 /**
-* Utility function to execute callback for eack key->value pair.
-*/
-export function forEach(obj: Object, callback: Function): void {
+ * Utility function to execute callback for eack key->value pair.
+ */
+export function forEach(obj, callback) {
   if (obj) {
-    for (const key in obj) { // eslint-disable-line no-restricted-syntax
+    for (const key in obj) {
+      // eslint-disable-line no-restricted-syntax
       if ({}.hasOwnProperty.call(obj, key)) {
         callback(key, obj[key]);
       }
@@ -14,9 +13,9 @@ export function forEach(obj: Object, callback: Function): void {
 }
 
 /**
-* Utility function to merge 2 objects.
-*/
-export function size(object: Object): any {
+ * Utility function to merge 2 objects.
+ */
+export function size(object) {
   if (object) {
     let count = 0;
     forEach(object, () => {

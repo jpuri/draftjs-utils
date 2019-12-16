@@ -1,18 +1,15 @@
-/* @flow */
-
 import {
   EditorState,
   RichUtils,
   Modifier,
-  ContentBlock,
-  DefaultDraftBlockRenderMap
-} from "draft-js";
-import { OrderedMap, List, Map } from "immutable";
+  DefaultDraftBlockRenderMap,
+} from 'draft-js';
+import { List, Map } from 'immutable';
 
 /**
  * Function returns collection of currently selected blocks.
  */
-export function getSelectedBlocksMap(editorState: EditorState): OrderedMap {
+export function getSelectedBlocksMap(editorState) {
   const selectionState = editorState.getSelection();
   const contentState = editorState.getCurrentContent();
   const startKey = selectionState.getStartKey();
@@ -28,14 +25,14 @@ export function getSelectedBlocksMap(editorState: EditorState): OrderedMap {
 /**
  * Function returns collection of currently selected blocks.
  */
-export function getSelectedBlocksList(editorState: EditorState): List {
+export function getSelectedBlocksList(editorState) {
   return getSelectedBlocksMap(editorState).toList();
 }
 
 /**
  * Function returns the first selected block.
  */
-export function getSelectedBlock(editorState: EditorState): ContentBlock {
+export function getSelectedBlock(editorState) {
   if (editorState) {
     return getSelectedBlocksList(editorState).get(0);
   }
@@ -45,9 +42,7 @@ export function getSelectedBlock(editorState: EditorState): ContentBlock {
 /**
  * Function returns the block just before the selected block.
  */
-export function getBlockBeforeSelectedBlock(
-  editorState: EditorState
-): ContentBlock {
+export function getBlockBeforeSelectedBlock(editorState) {
   if (editorState) {
     const selectedBlock = getSelectedBlock(editorState);
     const contentState = editorState.getCurrentContent();
@@ -57,7 +52,7 @@ export function getBlockBeforeSelectedBlock(
       .toList();
     let previousIndex = 0;
     blockList.forEach((block, index) => {
-      if (block.get("key") === selectedBlock.get("key")) {
+      if (block.get('key') === selectedBlock.get('key')) {
         previousIndex = index - 1;
       }
     });
@@ -71,7 +66,7 @@ export function getBlockBeforeSelectedBlock(
 /**
  * Function returns list of all blocks in the editor.
  */
-export function getAllBlocks(editorState: EditorState): List {
+export function getAllBlocks(editorState) {
   if (editorState) {
     return editorState
       .getCurrentContent()
@@ -85,7 +80,7 @@ export function getAllBlocks(editorState: EditorState): List {
  * If all currently selected blocks are of same type the function will return their type,
  * Else it will return empty string.
  */
-export function getSelectedBlocksType(editorState: EditorState): any {
+export function getSelectedBlocksType(editorState) {
   const blocks = getSelectedBlocksList(editorState);
   const hasMultipleBlockTypes = blocks.some(
     block => block.type !== blocks.get(0).type
@@ -100,12 +95,10 @@ export function getSelectedBlocksType(editorState: EditorState): any {
  * Function will change block style to unstyled for selected blocks.
  * RichUtils.tryToRemoveBlockStyle does not workd for blocks of length greater than 1.
  */
-export function removeSelectedBlocksStyle(
-  editorState: EditorState
-): EditorState {
+export function removeSelectedBlocksStyle(editorState) {
   const newContentState = RichUtils.tryToRemoveBlockStyle(editorState);
   if (newContentState) {
-    return EditorState.push(editorState, newContentState, "change-block-type");
+    return EditorState.push(editorState, newContentState, 'change-block-type');
   }
   return editorState;
 }
@@ -113,8 +106,8 @@ export function removeSelectedBlocksStyle(
 /**
  * Function will return currently selected text in the editor.
  */
-export function getSelectionText(editorState: EditorState): string {
-  let selectedText = "";
+export function getSelectionText(editorState) {
+  let selectedText = '';
   const currentSelection = editorState.getSelection();
   let start = currentSelection.getAnchorOffset();
   let end = currentSelection.getFocusOffset();
@@ -145,28 +138,26 @@ export function getSelectionText(editorState: EditorState): string {
  * case Shift+Enter, select not collapsed ->
  *   selected text will be removed and line break will be inserted.
  */
-export function addLineBreakRemovingSelection(
-  editorState: EditorState
-): EditorState {
+export function addLineBreakRemovingSelection(editorState) {
   const content = editorState.getCurrentContent();
   const selection = editorState.getSelection();
-  let newContent = Modifier.removeRange(content, selection, "forward");
+  let newContent = Modifier.removeRange(content, selection, 'forward');
   const fragment = newContent.getSelectionAfter();
   const block = newContent.getBlockForKey(fragment.getStartKey());
   newContent = Modifier.insertText(
     newContent,
     fragment,
-    "\n",
+    '\n',
     block.getInlineStyleAt(fragment.getStartOffset()),
     null
   );
-  return EditorState.push(editorState, newContent, "insert-fragment");
+  return EditorState.push(editorState, newContent, 'insert-fragment');
 }
 
 /**
  * Function will inset a new unstyled block.
  */
-export function insertNewUnstyledBlock(editorState: EditorState): EditorState {
+export function insertNewUnstyledBlock(editorState) {
   const newContentState = Modifier.splitBlock(
     editorState.getCurrentContent(),
     editorState.getSelection()
@@ -174,7 +165,7 @@ export function insertNewUnstyledBlock(editorState: EditorState): EditorState {
   const newEditorState = EditorState.push(
     editorState,
     newContentState,
-    "split-block"
+    'split-block'
   );
   return removeSelectedBlocksStyle(newEditorState);
 }
@@ -182,44 +173,41 @@ export function insertNewUnstyledBlock(editorState: EditorState): EditorState {
 /**
  * Function will clear all content from the editor.
  */
-export function clearEditorContent(editorState: EditorState): EditorState {
+export function clearEditorContent(editorState) {
   const blocks = editorState
     .getCurrentContent()
     .getBlockMap()
     .toList();
   const updatedSelection = editorState.getSelection().merge({
-    anchorKey: blocks.first().get("key"),
+    anchorKey: blocks.first().get('key'),
     anchorOffset: 0,
-    focusKey: blocks.last().get("key"),
-    focusOffset: blocks.last().getLength()
+    focusKey: blocks.last().get('key'),
+    focusOffset: blocks.last().getLength(),
   });
   const newContentState = Modifier.removeRange(
     editorState.getCurrentContent(),
     updatedSelection,
-    "forward"
+    'forward'
   );
-  return EditorState.push(editorState, newContentState, "remove-range");
+  return EditorState.push(editorState, newContentState, 'remove-range');
 }
 
 /**
  * Function will add block level meta-data.
  */
-export function setBlockData(
-  editorState: EditorState,
-  data: Object
-): EditorState {
+export function setBlockData(editorState, data) {
   const newContentState = Modifier.setBlockData(
     editorState.getCurrentContent(),
     editorState.getSelection(),
     data
   );
-  return EditorState.push(editorState, newContentState, "change-block-data");
+  return EditorState.push(editorState, newContentState, 'change-block-data');
 }
 
 /**
  * Function will return currently selected blocks meta data.
  */
-export function getSelectedBlocksMetadata(editorState: EditorState): Map {
+export function getSelectedBlocksMetadata(editorState) {
   let metaData = new Map({});
   const selectedBlocks = getSelectedBlocksList(editorState);
   if (selectedBlocks && selectedBlocks.size > 0) {
@@ -250,8 +238,8 @@ export function getSelectedBlocksMetadata(editorState: EditorState): Map {
 
 const newBlockRenderMap = Map({
   code: {
-    element: "pre"
-  }
+    element: 'pre',
+  },
 });
 
 export const blockRenderMap = DefaultDraftBlockRenderMap.merge(

@@ -1,38 +1,27 @@
-/* @flow */
-
-import {
-  ContentState,
-  EditorState,
-  ContentBlock,
-} from 'draft-js';
+import { EditorState } from 'draft-js';
 import { getSelectedBlocksMap } from './block';
 
 /**
-* Function to check if a block is of type list.
-*/
-export function isListBlock(block: ContentBlock): boolean {
+ * Function to check if a block is of type list.
+ */
+export function isListBlock(block) {
   if (block) {
     const blockType = block.getType();
     return (
-      blockType === 'unordered-list-item' ||
-      blockType === 'ordered-list-item'
+      blockType === 'unordered-list-item' || blockType === 'ordered-list-item'
     );
   }
   return false;
 }
 
 /**
-* Function to change depth of block(s).
-*/
-function changeBlocksDepth(
-  editorState: EditorState,
-  adjustment: number,
-  maxDepth: number,
-  ): ContentState {
+ * Function to change depth of block(s).
+ */
+function changeBlocksDepth(editorState, adjustment, maxDepth) {
   const selectionState = editorState.getSelection();
   const contentState = editorState.getCurrentContent();
   let blockMap = contentState.getBlockMap();
-  const blocks = getSelectedBlocksMap(editorState).map((block) => {
+  const blocks = getSelectedBlocksMap(editorState).map(block => {
     let depth = block.getDepth() + adjustment;
     depth = Math.max(0, Math.min(depth, maxDepth));
     return block.set('depth', depth);
@@ -46,14 +35,10 @@ function changeBlocksDepth(
 }
 
 /**
-* Function will check various conditions for changing depth and will accordingly
-* either call function changeBlocksDepth or just return the call.
-*/
-export function changeDepth(
-  editorState: EditorState,
-  adjustment: number,
-  maxDepth: number,
-): EditorState {
+ * Function will check various conditions for changing depth and will accordingly
+ * either call function changeBlocksDepth or just return the call.
+ */
+export function changeDepth(editorState, adjustment, maxDepth) {
   const selection = editorState.getSelection();
   let key;
   if (selection.getIsBackward()) {
@@ -83,11 +68,7 @@ export function changeDepth(
   const withAdjustment = changeBlocksDepth(
     editorState,
     adjustment,
-    adjustedMaxDepth,
+    adjustedMaxDepth
   );
-  return EditorState.push(
-    editorState,
-    withAdjustment,
-    'adjust-depth',
-  );
+  return EditorState.push(editorState, withAdjustment, 'adjust-depth');
 }

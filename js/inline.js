@@ -216,7 +216,7 @@ export function toggleCustomInlineStyle(editorState, styleType, style) {
     }
   } else {
     const styleKey = styleType === 'bgcolor' ? 'backgroundColor' : styleType;
-    if (!currentStyle.has(`${styleKey}-${style}`)) {
+    if (!currentStyle.has(`${styleType}-${style}`)) {
       nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
         `${styleType.toLowerCase()}-${style}`

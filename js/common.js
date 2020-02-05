@@ -25,3 +25,11 @@ export function size(object) {
   }
   return undefined;
 }
+
+export function startsWith(inputString, searchString) {
+  if (typeof inputString.startsWith === 'function') {
+    return inputString.startsWith(searchString);
+  }
+
+  return inputString.slice(0, searchString.length) === searchString;
+}

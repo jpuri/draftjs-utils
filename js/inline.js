@@ -1,5 +1,6 @@
 import { Modifier, RichUtils, EditorState } from 'draft-js';
 import { getSelectedBlocksList, getSelectedBlock } from './block';
+import { startsWith } from './common';
 
 /**
  * Function returns an object of inline styles currently applicable.
@@ -257,7 +258,7 @@ export function extractInlineStyle(editorState) {
  */
 function getStyleAtOffset(block, stylePrefix, offset) {
   const styles = block.getInlineStyleAt(offset).toList();
-  const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
+  const style = styles.filter(s => startsWith(s, stylePrefix.toLowerCase()));
   if (style && style.size > 0) {
     return style.get(0);
   }
@@ -269,7 +270,7 @@ function getStyleAtOffset(block, stylePrefix, offset) {
  */
 function getCurrentInlineStyle(editorState, stylePrefix) {
   const styles = editorState.getCurrentInlineStyle().toList();
-  const style = styles.filter(s => s.startsWith(stylePrefix.toLowerCase()));
+  const style = styles.filter(s => startsWith(s, stylePrefix.toLowerCase()));
   if (style && style.size > 0) {
     return style.get(0);
   }

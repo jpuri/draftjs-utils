@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { spy } from 'sinon';
-import { forEach, size } from '../common';
+import { forEach, size, startsWith } from '../common';
 
 describe('forEach test suite', () => {
   const obj = {
@@ -36,5 +36,33 @@ describe('size test suite', () => {
       c: 3,
     };
     assert.equal(size(obj), 3);
+  });
+});
+
+
+describe('startsWith test suite', () => {
+  // To force IE logic
+  function createIeString(string) {
+    // eslint-disable-next-line no-new-wrappers
+    const ieString = new String(string);
+    ieString.startsWith = undefined;
+    return ieString;
+  }
+
+  it('should return true if search found', () => {
+    assert.isTrue(startsWith('start/testme', 'start/'));
+  });
+  it('IE should return true if search found', () => {
+    assert.isTrue(startsWith(createIeString('start/testme'), 'start/'));
+  });
+  it('works with empty strings', () => {
+    assert.isTrue(startsWith('', ''));
+    assert.isTrue(startsWith('test', ''));
+    assert.isFalse(startsWith('', '\r'));
+  });
+  it('IE works with empty strings', () => {
+    assert.isTrue(startsWith(createIeString(''), ''));
+    assert.isTrue(startsWith(createIeString('test'), ''));
+    assert.isFalse(startsWith(createIeString(''), '\r'));
   });
 });

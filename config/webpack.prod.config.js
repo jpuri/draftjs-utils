@@ -9,6 +9,7 @@ module.exports = {
     filename: 'draftjs-utils.js',
     library: 'draftjsUtils',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   optimization: {
     minimizer: [new UglifyJsPlugin()],

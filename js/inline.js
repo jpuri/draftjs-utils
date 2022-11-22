@@ -201,7 +201,7 @@ export function toggleCustomInlineStyle(editorState, styleType, style) {
   let nextEditorState = EditorState.push(
     editorState,
     nextContentState,
-    'changeinline-style'
+    'change-inline-style'
   );
   const currentStyle = editorState.getCurrentInlineStyle();
   if (selection.isCollapsed()) {
